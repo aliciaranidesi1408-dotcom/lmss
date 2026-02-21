@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siswa Dashboard - LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>SMKN 12</h3>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard-siswa.html" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-book"></i>
+                    <span>Mata Pelajaran</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-tasks"></i>
+                    <span>Tugas</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-calendar"></i>
+                    <span>Jadwal</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Nilai</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-bell"></i>
+                    <span>Pengumuman</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/siswa.jpg" alt="Siswa">
+                    <div>
+                        <p>Budi Santoso</p>
+                        <span>XI RPL 1</span>
+                    </div>
+                </div>
+                <a href="index.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dashboard Siswa</h1>
+                <div class="header-right">
+                    <span class="date" id="currentDate"></span>
+                </div>
+            </header>
+
+            <!-- Slideshow Deadline -->
+            <div class="slideshow-container">
+                <div class="slides fade">
+                    <div class="deadline-card urgent">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="deadline-info">
+                            <h3>Tugas Matematika - Deadline Hari Ini!</h3>
+                            <p>Bab Persamaan Linear - Kumpul jam 23:59</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <div class="deadline-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="deadline-info">
+                            <h3>Tugas Bahasa Indonesia - Besok</h3>
+                            <p>Membuat Cerpen - Deadline Sabtu, 21 Feb</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <div class="deadline-card">
+                        <i class="fas fa-bullhorn"></i>
+                        <div class="deadline-info">
+                            <h3>Pengumuman: Libur Nasional</h3>
+                            <p>Hari Raya Nyepi - 22 Maret 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+
+                <div class="dots-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <h3>8</h3>
+                        <p>Tugas Selesai</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>3</h3>
+                        <p>Tugas Belum</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <div>
+                        <h3>85.5</h3>
+                        <p>Rata-rata Nilai</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <h3>8</h3>
+                        <p>Mata Pelajaran</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mata Pelajaran -->
+            <h2 class="section-title">Mata Pelajaran</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-calculator"></i> Matematika</h3>
+                    <p>Pak Ahmad</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                    <p>Progress: 75%</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-book"></i> Bahasa Indonesia</h3>
+                    <p>Bu Siti</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <p>Progress: 60%</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-language"></i> Bahasa Inggris</h3>
+                    <p>Mr. John</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 80%"></div>
+                    </div>
+                    <p>Progress: 80%</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-code"></i> Pemrograman</h3>
+                    <p>Pak Budi</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 45%"></div>
+                    </div>
+                    <p>Progress: 45%</p>
+                </div>
+            </div>
+
+            <!-- Tugas Terbaru -->
+            <h2 class="section-title">Tugas Terbaru</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Mata Pelajaran</th>
+                        <th>Tugas</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matematika</td>
+                        <td>Persamaan Linear</td>
+                        <td style="color: var(--urgent);">Hari ini</td>
+                        <td><span class="badge pending">Belum</span></td>
+                        <td><button class="btn-primary" onclick="openModal('kumpulTugas')">Kumpul</button></td>
+                    </tr>
+                    <tr>
+                        <td>Bahasa Indonesia</td>
+                        <td>Membuat Cerpen</td>
+                        <td>21 Feb 2026</td>
+                        <td><span class="badge pending">Belum</span></td>
+                        <td><button class="btn-primary" onclick="openModal('kumpulTugas')">Kumpul</button></td>
+                    </tr>
+                    <tr>
+                        <td>Bahasa Inggris</td>
+                        <td>Essay Writing</td>
+                        <td>18 Feb 2026</td>
+                        <td><span class="badge completed">Selesai</span></td>
+                        <td><span style="color: var(--success);">Sudah dikumpul</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Komentar Guru -->
+            <h2 class="section-title">Komentar Guru</h2>
+            <div class="comment-section">
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Pak Ahmad (Matematika)</span>
+                        <span class="comment-date">19 Feb 2026</span>
+                    </div>
+                    <p class="comment-text">Bagus Budi, lanjutkan! Tapi coba pelajari lagi bab trigonometri.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Kumpul Tugas -->
+    <div id="modalKumpulTugas" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('kumpulTugas')">&times;</span>
+            <h2>Kumpul Tugas</h2>
+            <form>
+                <div class="form-group">
+                    <label>Mata Pelajaran</label>
+                    <input type="text" class="form-control" value="Matematika" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Judul Tugas</label>
+                    <input type="text" class="form-control" value="Persamaan Linear" readonly>
+                </div>
+                <div class="form-group">
+                    <label>File Tugas</label>
+                    <input type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Komentar (opsional)</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Kumpulkan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

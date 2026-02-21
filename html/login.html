@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login LMS SMK Negeri 12 Jakarta</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+        <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-icon">⚠️</div>
+            <h3>Login Gagal</h3>
+            <p id="errorMessage">Email atau Password tidak terdaftar.</p>
+            <button id="closeModalBtn" class="btn-login">Coba Lagi</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-section">
+            <img src="../img/logodubes.png" alt="Logo SMK" class="logo">
+            <h1>Learning Management System</h1>
+            <h2>SMK Negeri 12 Jakarta</h2>
+            <div class="illustration">
+                <img src="../img/ilustrasilogin.png" alt="Illustration">
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="login-card">
+                <h3>LOGIN</h3>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Isi Email Anda" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Isi Password Anda" required>
+                    </div>
+                    <button type="submit" class="btn-login">LOGIN</button>
+                </form>
+                
+                <div class="credentials-hint">
+                    <p>admin@sekolah.sch.id pw: <b>admin</b></p>
+                    <p>kepsek@sekolah.sch.id pw: <b>kepsek</b></p>
+                    <p>irwan@gmail.com pw: <b>123456</b></p>
+                    <p>aurel@gmail.com pw: <b>aurel</b></p>
+                    <p>ibu_aurel@gmail.com pw: <b>password</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/login.js"></script>
+</body>
+</html>

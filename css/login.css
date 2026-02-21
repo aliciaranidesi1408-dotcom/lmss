@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #F1EEDC; /* Warna Background Utama */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 1100px;
+    max-width: 95%;
+    align-items: center;
+}
+
+.left-section {
+    flex: 1.2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo { 
+    width: 100px; 
+    margin-bottom: 10px; /* Memberi jarak bawah pada logo agar tidak mepet teks */
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1));
+}
+
+h1 { font-size: 1.8rem; color: #333; }
+h2 { font-size: 1.2rem; color: #555; font-weight: 400; }
+
+.illustration img {
+    width: 100%;
+    max-width: 360px;
+    filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.05));
+    transition: transform 0.3s ease;
+}
+
+.illustration img:hover {
+    transform: translateY(-10px); /* Interaksi saat mouse lewat */
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card {
+    background-color: rgba(217, 217, 217, 0.4); /* D9D9D9 dengan transparansi */
+    padding: 50px;
+    border-radius: 30px;
+    border: 8px solid #94b79d; /* Warna Border */
+    width: 100%;
+    max-width: 500px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.input-group { margin-bottom: 20px; }
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #787878;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(175, 196, 181, 0.8); /* AFC4B5 80% */
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    background-color: #AFC4B5;
+    box-shadow: 0 0 5px rgba(95, 113, 97, 0.5);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(95, 113, 97, 0.9); /* 5F7161 90% approx */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #5F7161; /* 100% */
+    transform: translateY(-2px);
+}
+
+.btn-login:active { transform: translateY(0); }
+
+.credentials-hint {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #787878;
+    line-height: 1.4;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #F1EEDC;
+    margin: 15% auto;
+    padding: 30px;
+    border: 3px solid #AFC4B5;
+    width: 350px;
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+    animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #787878;
+}
+
+#closeModalBtn {
+    margin-top: 20px;
+}

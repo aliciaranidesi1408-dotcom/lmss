@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guru Dashboard - LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.png" alt="Logo">
+                <h3>SMKN 12</h3>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard-guru.html" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-door-open"></i>
+                    <span>Kelas Saya</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Materi</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-tasks"></i>
+                    <span>Tugas</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Perangkat Ajar</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Pengumuman</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-comment"></i>
+                    <span>Komentar Kepsek</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/guru.jpg" alt="Guru">
+                    <div>
+                        <p>Ahmad Guru</p>
+                        <span>Guru Matematika</span>
+                    </div>
+                </div>
+                <a href="index.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Dashboard Guru</h1>
+                <div class="header-right">
+                    <span class="date" id="currentDate"></span>
+                </div>
+            </header>
+
+            <!-- Slideshow Deadline -->
+            <div class="slideshow-container">
+                <div class="slides fade">
+                    <div class="deadline-card urgent">
+                        <i class="fas fa-clock"></i>
+                        <div class="deadline-info">
+                            <h3>Deadline Kumpul Nilai</h3>
+                            <p>Tugas Matematika - Hari ini jam 23:59</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <div class="deadline-card">
+                        <i class="fas fa-comment"></i>
+                        <div class="deadline-info">
+                            <h3>Komentar dari Kepsek</h3>
+                            <p>Kepsek memberi komentar pada perangkat ajar</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <div class="deadline-card">
+                        <i class="fas fa-bullhorn"></i>
+                        <div class="deadline-info">
+                            <h3>Rapat Guru</h3>
+                            <p>Senin, 23 Feb 2026 - Ruang Guru</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+
+                <div class="dots-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-door-open"></i>
+                    <div>
+                        <h3>3</h3>
+                        <p>Kelas Diajar</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h3>94</h3>
+                        <p>Total Siswa</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>12</h3>
+                        <p>Tugas Aktif</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <h3>45</h3>
+                        <p>Tugas Terkumpul</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn" onclick="openModal('uploadMateri')">
+                    <i class="fas fa-file-upload"></i> Upload Materi
+                </button>
+                <button class="action-btn" onclick="openModal('buatTugas')">
+                    <i class="fas fa-plus-circle"></i> Buat Tugas
+                </button>
+                <button class="action-btn" onclick="openModal('uploadPerangkat')">
+                    <i class="fas fa-clipboard-list"></i> Upload Perangkat Ajar
+                </button>
+                <button class="action-btn" onclick="openModal('buatPengumuman')">
+                    <i class="fas fa-bullhorn"></i> Buat Pengumuman
+                </button>
+            </div>
+
+            <!-- Kelas yang Diajar -->
+            <h2 class="section-title">Kelas yang Diajar</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-door-open"></i> X RPL 1</h3>
+                    <p>32 Siswa</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                    <p>Progress: 75%</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-door-open"></i> X RPL 2</h3>
+                    <p>31 Siswa</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <p>Progress: 60%</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-door-open"></i> XI RPL 1</h3>
+                    <p>31 Siswa</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 80%"></div>
+                    </div>
+                    <p>Progress: 80%</p>
+                </div>
+            </div>
+
+            <!-- Daftar Siswa per Kelas -->
+            <h2 class="section-title">Progress Siswa - X RPL 1</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nama Siswa</th>
+                        <th>Buka Materi</th>
+                        <th>Kumpul Tugas</th>
+                        <th>Nilai</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Budi Santoso</td>
+                        <td><i class="fas fa-check" style="color: green;"></i> Sudah</td>
+                        <td><i class="fas fa-check" style="color: green;"></i> Sudah</td>
+                        <td>85</td>
+                        <td><span class="badge completed">Selesai</span></td>
+                        <td><button class="btn-primary" onclick="openModal('nilai')">Beri Nilai</button></td>
+                    </tr>
+                    <tr>
+                        <td>Ani Wijaya</td>
+                        <td><i class="fas fa-check" style="color: green;"></i> Sudah</td>
+                        <td><i class="fas fa-times" style="color: red;"></i> Belum</td>
+                        <td>-</td>
+                        <td><span class="badge pending">Pending</span></td>
+                        <td><button class="btn-primary" onclick="openModal('nilai')">Beri Nilai</button></td>
+                    </tr>
+                    <tr>
+                        <td>Citra Dewi</td>
+                        <td><i class="fas fa-times" style="color: red;"></i> Belum</td>
+                        <td><i class="fas fa-times" style="color: red;"></i> Belum</td>
+                        <td>-</td>
+                        <td><span class="badge pending">Pending</span></td>
+                        <td><button class="btn-primary" onclick="openModal('nilai')">Beri Nilai</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Komentar dari Kepsek -->
+            <h2 class="section-title">Komentar dari Kepsek</h2>
+            <div class="comment-section">
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Kepala Sekolah</span>
+                        <span class="comment-date">19 Feb 2026</span>
+                    </div>
+                    <p class="comment-text">Perangkat ajar Matematika sudah bagus, tapi mohon ditambahkan contoh soal yang lebih variatif.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Upload Materi -->
+    <div id="modalUploadMateri" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('uploadMateri')">&times;</span>
+            <h2>Upload Materi</h2>
+            <form>
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <select class="form-control">
+                        <option>X RPL 1</option>
+                        <option>X RPL 2</option>
+                        <option>XI RPL 1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mata Pelajaran</label>
+                    <input type="text" class="form-control" value="Matematika" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Judul Materi</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>File Materi</label>
+                    <input type="file" class="form-control">
+                </div>
+                <button type="submit" class="btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
