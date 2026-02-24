@@ -1,258 +1,314 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siswa Dashboard - LMS</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Siswa — SMK Negeri 12</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/siswa.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="assets/logo.png" alt="Logo">
-                <h3>SMKN 12</h3>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <a href="dashboard-siswa.html" class="active">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#">
-                    <i class="fas fa-book"></i>
-                    <span>Mata Pelajaran</span>
-                </a>
-                <a href="#">
-                    <i class="fas fa-tasks"></i>
-                    <span>Tugas</span>
-                </a>
-                <a href="#">
-                    <i class="fas fa-calendar"></i>
-                    <span>Jadwal</span>
-                </a>
-                <a href="#">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Nilai</span>
-                </a>
-                <a href="#">
-                    <i class="fas fa-bell"></i>
-                    <span>Pengumuman</span>
-                </a>
-            </nav>
-            
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <img src="assets/siswa.jpg" alt="Siswa">
-                    <div>
-                        <p>Budi Santoso</p>
-                        <span>XI RPL 1</span>
-                    </div>
-                </div>
-                <a href="index.html" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
-            </div>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="content-header">
-                <h1>Dashboard Siswa</h1>
-                <div class="header-right">
-                    <span class="date" id="currentDate"></span>
-                </div>
-            </header>
-
-            <!-- Slideshow Deadline -->
-            <div class="slideshow-container">
-                <div class="slides fade">
-                    <div class="deadline-card urgent">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div class="deadline-info">
-                            <h3>Tugas Matematika - Deadline Hari Ini!</h3>
-                            <p>Bab Persamaan Linear - Kumpul jam 23:59</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slides fade">
-                    <div class="deadline-card">
-                        <i class="fas fa-clock"></i>
-                        <div class="deadline-info">
-                            <h3>Tugas Bahasa Indonesia - Besok</h3>
-                            <p>Membuat Cerpen - Deadline Sabtu, 21 Feb</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slides fade">
-                    <div class="deadline-card">
-                        <i class="fas fa-bullhorn"></i>
-                        <div class="deadline-info">
-                            <h3>Pengumuman: Libur Nasional</h3>
-                            <p>Hari Raya Nyepi - 22 Maret 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <a class="prev" onclick="plusSlides(-1)">❮</a>
-                <a class="next" onclick="plusSlides(1)">❯</a>
-
-                <div class="dots-container">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                </div>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-check-circle"></i>
-                    <div>
-                        <h3>8</h3>
-                        <p>Tugas Selesai</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>3</h3>
-                        <p>Tugas Belum</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-star"></i>
-                    <div>
-                        <h3>85.5</h3>
-                        <p>Rata-rata Nilai</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-book"></i>
-                    <div>
-                        <h3>8</h3>
-                        <p>Mata Pelajaran</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mata Pelajaran -->
-            <h2 class="section-title">Mata Pelajaran</h2>
-            <div class="cards-grid">
-                <div class="info-card">
-                    <h3><i class="fas fa-calculator"></i> Matematika</h3>
-                    <p>Pak Ahmad</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 75%"></div>
-                    </div>
-                    <p>Progress: 75%</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-book"></i> Bahasa Indonesia</h3>
-                    <p>Bu Siti</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 60%"></div>
-                    </div>
-                    <p>Progress: 60%</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-language"></i> Bahasa Inggris</h3>
-                    <p>Mr. John</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 80%"></div>
-                    </div>
-                    <p>Progress: 80%</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-code"></i> Pemrograman</h3>
-                    <p>Pak Budi</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 45%"></div>
-                    </div>
-                    <p>Progress: 45%</p>
-                </div>
-            </div>
-
-            <!-- Tugas Terbaru -->
-            <h2 class="section-title">Tugas Terbaru</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Mata Pelajaran</th>
-                        <th>Tugas</th>
-                        <th>Deadline</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Matematika</td>
-                        <td>Persamaan Linear</td>
-                        <td style="color: var(--urgent);">Hari ini</td>
-                        <td><span class="badge pending">Belum</span></td>
-                        <td><button class="btn-primary" onclick="openModal('kumpulTugas')">Kumpul</button></td>
-                    </tr>
-                    <tr>
-                        <td>Bahasa Indonesia</td>
-                        <td>Membuat Cerpen</td>
-                        <td>21 Feb 2026</td>
-                        <td><span class="badge pending">Belum</span></td>
-                        <td><button class="btn-primary" onclick="openModal('kumpulTugas')">Kumpul</button></td>
-                    </tr>
-                    <tr>
-                        <td>Bahasa Inggris</td>
-                        <td>Essay Writing</td>
-                        <td>18 Feb 2026</td>
-                        <td><span class="badge completed">Selesai</span></td>
-                        <td><span style="color: var(--success);">Sudah dikumpul</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Komentar Guru -->
-            <h2 class="section-title">Komentar Guru</h2>
-            <div class="comment-section">
-                <div class="comment">
-                    <div class="comment-header">
-                        <span class="comment-author">Pak Ahmad (Matematika)</span>
-                        <span class="comment-date">19 Feb 2026</span>
-                    </div>
-                    <p class="comment-text">Bagus Budi, lanjutkan! Tapi coba pelajari lagi bab trigonometri.</p>
-                </div>
-            </div>
-        </main>
+<!-- ════ SIDEBAR ════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <!-- Ganti logo di sini - path img silakan disesuaikan -->
+    <img src="../img/logodubes.png" alt="Logo SMK Negeri 12" class="logo">
+    <div class="logo-text"><h2>SMK Negeri 12</h2><p>Learning System</p></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <div class="nav-item active" onclick="navigateTo('dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
+    <div class="nav-item" onclick="navigateTo('mapel')"><i class="fa-solid fa-book-open"></i> Mata Pelajaran</div>
+    <div class="nav-label">Pembelajaran</div>
+    <div class="nav-item" onclick="navigateTo('materi')"><i class="fa-solid fa-file-lines"></i> Materi<span class="badge" id="badge-materi-baru">2</span></div>
+    <div class="nav-item" onclick="navigateTo('tugas')"><i class="fa-solid fa-clipboard-list"></i> Tugas & Kuis<span class="badge" id="badge-tugas">3</span></div>
+    <div class="nav-item" onclick="navigateTo('nilai')"><i class="fa-solid fa-star"></i> Nilai Saya</div>
+    <div class="nav-label">Informasi</div>
+    <div class="nav-item" onclick="navigateTo('pengumuman')"><i class="fa-solid fa-bullhorn"></i> Pengumuman<span class="badge" id="badge-peng">2</span></div>
+    <div class="nav-item" onclick="navigateTo('komentar')"><i class="fa-solid fa-comment-dots"></i> Komentar Guru</div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar">AU</div>
+      <div class="user-info"><h4>Aurel Putri</h4><p>XI RPL 1 — Siswa</p></div>
     </div>
+    <div class="logout-btn" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+  </div>
+</aside>
 
-    <!-- Modal Kumpul Tugas -->
-    <div id="modalKumpulTugas" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('kumpulTugas')">&times;</span>
-            <h2>Kumpul Tugas</h2>
-            <form>
-                <div class="form-group">
-                    <label>Mata Pelajaran</label>
-                    <input type="text" class="form-control" value="Matematika" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Judul Tugas</label>
-                    <input type="text" class="form-control" value="Persamaan Linear" readonly>
-                </div>
-                <div class="form-group">
-                    <label>File Tugas</label>
-                    <input type="file" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Komentar (opsional)</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn-primary">Kumpulkan</button>
-            </form>
+<!-- ════ MAIN ════ -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1 id="topbar-title">Dashboard Siswa</h1>
+      <p id="topbar-sub">Selamat datang, Aurel Putri — XI RPL 1</p>
+    </div>
+    <div class="topbar-right">
+      <div class="siswa-tag"><i class="fa-solid fa-graduation-cap"></i> Siswa</div>
+      <div class="topbar-btn" onclick="toggleNotif()" id="notif-btn">
+        <i class="fa-regular fa-bell"></i><span class="notif-dot" id="notif-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notif-panel" id="notif-panel">
+    <div class="notif-header"><h4>Notifikasi</h4><span onclick="markAllRead()">Tandai dibaca</span></div>
+    <div class="notif-item unread"><div class="notif-dot-ind"></div><div class="notif-item-body"><h5>Tugas baru dari Pak Irwan</h5><p>Kuis Trigonometri — deadline besok!</p></div></div>
+    <div class="notif-item unread"><div class="notif-dot-ind"></div><div class="notif-item-body"><h5>Materi baru tersedia</h5><p>Bu Maya upload Modul Reading Comprehension</p></div></div>
+    <div class="notif-item"><div class="notif-dot-ind" style="background:transparent"></div><div class="notif-item-body"><h5>Nilai sudah diinput</h5><p>Nilai Tugas Limit Fungsi: 88</p></div></div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="identitas-card">
+        <div class="identitas-avatar">AU</div>
+        <div class="identitas-info">
+          <h2>Aurel Putri</h2>
+          <p>NIS: 2301008 — aurel@gmail.com</p>
+          <div class="identitas-chips">
+            <span class="identitas-chip"><i class="fa-solid fa-door-open"></i> XI RPL 1</span>
+            <span class="identitas-chip"><i class="fa-solid fa-building"></i> Rekayasa Perangkat Lunak</span>
+            <span class="identitas-chip"><i class="fa-solid fa-calendar"></i> Semester Genap 2025/2026</span>
+          </div>
         </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-info"><label>Mata Pelajaran</label><h2>6</h2><p>Aktif semester ini</p></div><div class="stat-icon blue"><i class="fa-solid fa-book-open"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Tugas Aktif</label><h2 id="dash-tugas">3</h2><p>Belum dikumpulkan</p></div><div class="stat-icon orange"><i class="fa-solid fa-clipboard-list"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Tugas Selesai</label><h2 id="dash-selesai">5</h2><p>Sudah dikumpulkan</p></div><div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Rata-rata Nilai</label><h2>86</h2><p>Semester ini</p></div><div class="stat-icon purple"><i class="fa-solid fa-star"></i></div></div>
+      </div>
+
+      <div class="data-grid">
+        <div>
+          <div class="data-card" style="margin-bottom:16px">
+            <div class="data-card-header">
+              <h3><i class="fa-solid fa-clock" style="color:var(--warn);margin-right:6px"></i>Deadline Terdekat</h3>
+              <button class="btn-secondary" onclick="navigateTo('tugas')" style="font-size:12px;padding:6px 12px"><i class="fa-solid fa-arrow-right"></i> Semua</button>
+            </div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--danger)"></div><div class="deadline-body"><h4>Kuis Trigonometri</h4><p>Matematika — Pak Irwan</p></div><div class="deadline-date" style="color:var(--danger)">Besok</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--warn)"></div><div class="deadline-body"><h4>Tugas Limit Fungsi</h4><p>Matematika — Pak Irwan</p></div><div class="deadline-date" style="color:var(--warn)">25 Feb</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--primary)"></div><div class="deadline-body"><h4>Essay Pemrograman Web</h4><p>PKK — Pak Andi</p></div><div class="deadline-date">2 Mar</div></div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-header">
+              <h3><i class="fa-solid fa-file-lines" style="color:var(--info);margin-right:6px"></i>Materi Terbaru</h3>
+              <button class="btn-secondary" onclick="navigateTo('materi')" style="font-size:12px;padding:6px 12px"><i class="fa-solid fa-arrow-right"></i> Semua</button>
+            </div>
+            <div class="materi-item" onclick="bukaMateri(1)">
+              <div class="materi-icon modul"><i class="fa-solid fa-book"></i></div>
+              <div class="materi-body"><h4>Modul Limit Fungsi <span class="materi-new">Baru</span></h4><p>Matematika • Pak Irwan • 20 Feb 2026</p></div>
+              <span class="badge-status belum">Belum Dibuka</span>
+            </div>
+            <div class="materi-item" onclick="bukaMateri(2)">
+              <div class="materi-icon doc"><i class="fa-solid fa-file-word"></i></div>
+              <div class="materi-body"><h4>Modul Reading Comprehension <span class="materi-new">Baru</span></h4><p>B. Inggris • Bu Maya • 18 Feb 2026</p></div>
+              <span class="badge-status belum">Belum Dibuka</span>
+            </div>
+            <div class="materi-item" onclick="bukaMateri(3)">
+              <div class="materi-icon ppt"><i class="fa-solid fa-file-powerpoint"></i></div>
+              <div class="materi-body"><h4>PPT Trigonometri</h4><p>Matematika • Pak Irwan • 15 Feb 2026</p></div>
+              <span class="badge-status sudah">Sudah Dibuka</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="data-card">
+            <div class="data-card-header"><h3>Aktivitas Terbaru</h3></div>
+            <div class="activity-list">
+              <div class="activity-item"><div class="act-icon kumpul"><i class="fa-solid fa-paper-plane"></i></div><div class="act-body"><h4>Tugas dikumpulkan</h4><p>Latihan Integral • 1 jam lalu</p></div></div>
+              <div class="activity-item"><div class="act-icon buka"><i class="fa-solid fa-book-open"></i></div><div class="act-body"><h4>Materi dibuka</h4><p>PPT Trigonometri • 3 jam lalu</p></div></div>
+              <div class="activity-item"><div class="act-icon nilai"><i class="fa-solid fa-star"></i></div><div class="act-body"><h4>Nilai masuk</h4><p>Tugas Limit Fungsi: 88 • kemarin</p></div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-header"><h3>Progress Nilai per Mapel</h3></div>
+            <div class="chart-wrap">
+              <div class="chart-bar-row"><label>Matematika</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:86%"></div></div><span>86</span></div>
+              <div class="chart-bar-row"><label>B. Inggris</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:90%"></div></div><span>90</span></div>
+              <div class="chart-bar-row"><label>B. Indonesia</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:84%"></div></div><span>84</span></div>
+              <div class="chart-bar-row"><label>PKK</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:78%"></div></div><span>78</span></div>
+              <div class="chart-bar-row"><label>Pemrog.</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:94%"></div></div><span>94</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- MATA PELAJARAN -->
+    <div class="page" id="page-mapel">
+      <div class="page-header"><h2>Mata Pelajaran</h2><p>Semua mapel yang kamu ikuti semester ini.</p></div>
+      <div class="mapel-grid" id="mapel-grid"></div>
+    </div>
+
+    <!-- DETAIL MAPEL -->
+    <div class="page" id="page-detail-mapel">
+      <button class="btn-back" onclick="navigateTo('mapel')"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+      <div class="page-header"><h2 id="detail-mapel-judul">—</h2><p id="detail-mapel-sub">—</p></div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('dm-materi',this)"><i class="fa-solid fa-file-lines"></i> Materi</button>
+        <button class="tab-btn" onclick="switchTab('dm-tugas',this)"><i class="fa-solid fa-clipboard-list"></i> Tugas</button>
+        <button class="tab-btn" onclick="switchTab('dm-nilai',this)"><i class="fa-solid fa-star"></i> Nilai</button>
+      </div>
+      <div class="tab-content active" id="dm-materi"><div class="data-card"><div id="dm-materi-list"></div></div></div>
+      <div class="tab-content" id="dm-tugas"><div id="dm-tugas-list"></div></div>
+      <div class="tab-content" id="dm-nilai"><div class="data-card" id="dm-nilai-wrap"></div></div>
+    </div>
+
+    <!-- MATERI -->
+    <div class="page" id="page-materi">
+      <div class="page-header"><h2>Materi</h2><p>Semua materi dari guru-gurumu.</p></div>
+      <div class="table-wrap">
+        <div class="table-header"><h3>Semua Materi</h3>
+          <div class="table-controls">
+            <input type="text" class="input-search" placeholder="Cari materi..." oninput="filterMateri(this.value)"/>
+            <select class="input-search" id="filter-mapel-materi" onchange="filterMateri()">
+              <option value="">Semua Mapel</option>
+              <option>Matematika</option><option>B. Inggris</option><option>B. Indonesia</option><option>PKK</option><option>Pemrograman Dasar</option>
+            </select>
+          </div>
+        </div>
+        <div id="all-materi-list"></div>
+      </div>
+    </div>
+
+    <!-- TUGAS -->
+    <div class="page" id="page-tugas">
+      <div class="page-header"><h2>Tugas & Kuis</h2><p>Kumpulkan tugasmu sebelum deadline!</p></div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('tugas-aktif',this)">Belum Dikumpul <span id="tab-count-aktif" style="background:var(--warn);color:#fff;font-size:10px;padding:1px 6px;border-radius:99px;margin-left:4px">3</span></button>
+        <button class="tab-btn" onclick="switchTab('tugas-selesai',this)">Sudah Dikumpul <span id="tab-count-selesai" style="background:var(--primary);color:#fff;font-size:10px;padding:1px 6px;border-radius:99px;margin-left:4px">5</span></button>
+      </div>
+      <div class="tab-content active" id="tugas-aktif"><div id="tugas-aktif-list"></div></div>
+      <div class="tab-content" id="tugas-selesai"><div id="tugas-selesai-list"></div></div>
+    </div>
+
+    <!-- NILAI -->
+    <div class="page" id="page-nilai">
+      <div class="page-header"><h2>Nilai Saya</h2><p>Rekap nilai semua tugas yang sudah dinilai guru.</p></div>
+      <div class="data-grid">
+        <div id="nilai-list"></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="data-card">
+            <div class="data-card-header"><h3>Ringkasan per Mapel</h3></div>
+            <div class="chart-wrap">
+              <div class="chart-bar-row"><label>Matematika</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:86%"></div></div><span>86</span></div>
+              <div class="chart-bar-row"><label>B. Inggris</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:90%"></div></div><span>90</span></div>
+              <div class="chart-bar-row"><label>B. Indonesia</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:84%"></div></div><span>84</span></div>
+              <div class="chart-bar-row"><label>PKK</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:78%"></div></div><span>78</span></div>
+              <div class="chart-bar-row"><label>Pemrog.</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:94%"></div></div><span>94</span></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-header"><h3>Rata-rata Keseluruhan</h3></div>
+            <div style="padding:24px;text-align:center">
+              <div style="font-size:60px;font-weight:800;color:var(--primary);line-height:1">86</div>
+              <div style="font-size:13px;color:var(--text-muted);margin-top:8px">Dari 5 tugas yang dinilai</div>
+              <div style="margin-top:16px"><span class="badge-status sudah" style="font-size:12px;padding:5px 14px">Prestasi Baik 🎉</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENGUMUMAN -->
+    <div class="page" id="page-pengumuman">
+      <div class="page-header"><h2>Pengumuman</h2><p>Informasi terbaru dari guru-gurumu.</p></div>
+      <div class="data-grid">
+        <div class="data-card"><div id="peng-list"></div></div>
+        <div class="data-card">
+          <div class="data-card-header"><h3>Pengumuman dari Guru</h3></div>
+          <div class="chart-wrap">
+            <div class="chart-bar-row"><label>Pak Irwan</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:80%"></div></div><span>4</span></div>
+            <div class="chart-bar-row"><label>Bu Maya</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:60%"></div></div><span>3</span></div>
+            <div class="chart-bar-row"><label>Bu Rina</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:40%"></div></div><span>2</span></div>
+            <div class="chart-bar-row"><label>Pak Andi</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:20%"></div></div><span>1</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KOMENTAR -->
+    <div class="page" id="page-komentar">
+      <div class="page-header"><h2>Komentar Guru</h2><p>Evaluasi dan masukan dari guru-gurumu.</p></div>
+      <div class="data-grid">
+        <div class="data-card"><div id="komentar-list"></div></div>
+        <div class="data-card">
+          <div class="data-card-header"><h3>Ringkasan Evaluasi</h3></div>
+          <div class="chart-wrap">
+            <div class="chart-bar-row"><label>Positif</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:75%"></div></div><span>3</span></div>
+            <div class="chart-bar-row"><label>Semangat</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:25%;background:linear-gradient(90deg,#1a6fa5,#4a9fd4)"></div></div><span>1</span></div>
+          </div>
+          <div style="padding:14px 18px;font-size:12.5px;color:var(--text-secondary);background:#f9faf8;margin:0 16px 16px;border-radius:10px;line-height:1.8">
+            💡 Komentar dari guru bersifat membangun. Jadikan motivasi untuk terus berkembang!
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL: KUMPULKAN TUGAS -->
+<div class="modal-overlay" id="modal-kumpul">
+  <div class="modal">
+    <div class="modal-title">
+      <h3><i class="fa-solid fa-paper-plane" style="color:var(--primary)"></i> Kumpulkan Tugas</h3>
+      <button class="modal-close" onclick="closeModal('modal-kumpul')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="background:#f2f6f3;border-radius:10px;padding:14px 16px;margin-bottom:18px;border-left:4px solid var(--primary)">
+      <h4 id="modal-tugas-judul" style="font-size:14px;font-weight:700;color:var(--text-primary)">—</h4>
+      <p id="modal-tugas-info" style="font-size:12px;color:var(--text-muted);margin-top:4px">—</p>
+    </div>
+    <div class="form-group">
+      <label>Upload File Jawaban</label>
+      <div class="upload-area" onclick="document.getElementById('file-jawaban').click()" id="upload-area-jawaban">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <h4>Klik atau seret file ke sini</h4>
+        <p>PDF, DOCX, JPG, PNG — Maks. 10 MB</p>
+      </div>
+      <input type="file" id="file-jawaban" style="display:none" onchange="previewFileUpload(this)"/>
+      <p class="form-hint" id="nama-file-jawaban"></p>
+    </div>
+    <div class="form-group">
+      <label>Catatan (opsional)</label>
+      <textarea class="form-control" id="catatan-tugas" placeholder="Tuliskan catatan untuk guru..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modal-kumpul')">Batal</button>
+      <button class="btn-primary" onclick="submitTugas()"><i class="fa-solid fa-paper-plane"></i> Kumpulkan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: LIHAT MATERI -->
+<div class="modal-overlay" id="modal-materi">
+  <div class="modal">
+    <div class="modal-title">
+      <h3 id="modal-materi-judul"><i class="fa-solid fa-book-open" style="color:var(--info)"></i> —</h3>
+      <button class="modal-close" onclick="closeModal('modal-materi')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="background:#f2f6f3;border-radius:10px;padding:14px 16px;margin-bottom:18px">
+      <p id="modal-materi-info" style="font-size:12.5px;color:var(--text-secondary)">—</p>
+    </div>
+    <div style="border:2px dashed var(--primary-pale);border-radius:12px;padding:32px;text-align:center">
+      <i class="fa-solid fa-file-arrow-down" style="font-size:36px;color:var(--primary);display:block;margin-bottom:12px"></i>
+      <h4 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:6px" id="modal-materi-nama">—</h4>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Klik tombol di bawah untuk mengakses materi</p>
+      <button class="btn-primary" onclick="downloadMateri()"><i class="fa-solid fa-download"></i> Akses / Unduh Materi</button>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('modal-materi')">Tutup</button></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="/js/siswa.js"></script>
 </body>
 </html>
