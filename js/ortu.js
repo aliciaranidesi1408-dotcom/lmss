@@ -1,50 +1,127 @@
-/* ══════════════════════════════════════════════
-   orangtua-dashboard.js
-   SMK Negeri 12 — Dashboard Orang Tua
-   Login: ibu_aurel@gmail.com / password
-══════════════════════════════════════════════ */
+'use strict';
+/* ════════════════════════════════════════════════════════════
+   dashboard-orangtua.js
+   Sync data anak & pengumuman dari window.SharedStore (admin).
+════════════════════════════════════════════════════════════ */
 
-/* ════ DATA ════ */
-const mapelData = [
-  { id:1, nama:'Matematika',        guru:'Pak Irwan Setiawan',  inisial:'IW', color:'#5F7161', bg:'#eef6f0', icon:'fa-square-root-variable', nilaiRata:86 },
-  { id:2, nama:'Bahasa Inggris',    guru:'Bu Maya Putri',       inisial:'MY', color:'#d68910', bg:'#fef6e8', icon:'fa-language',              nilaiRata:90 },
-  { id:3, nama:'Bahasa Indonesia',  guru:'Bu Rina Hartati',     inisial:'RI', color:'#7d3c98', bg:'#f4f0fc', icon:'fa-pen-nib',               nilaiRata:84 },
-  { id:4, nama:'PKK',               guru:'Pak Andi Wibowo',     inisial:'AW', color:'#1a6fa5', bg:'#eaf4fb', icon:'fa-laptop-code',           nilaiRata:78 },
-  { id:5, nama:'Pemrograman Dasar', guru:'Pak Rudi Firmansyah', inisial:'RF', color:'#27ae60', bg:'#eef6f0', icon:'fa-code',                  nilaiRata:94 },
-  { id:6, nama:'Jaringan Komputer', guru:'Pak Dedi Susanto',    inisial:'DS', color:'#c0392b', bg:'#fef2f2', icon:'fa-network-wired',         nilaiRata:80 },
+/* ════════════════════════════════════
+   SYNC DARI SHARED STORE
+   - Cek data anak (Aurel) dari SharedStore
+   - Update pengumuman dari guru
+════════════════════════════════════ */
+function syncFromAdmin() {
+  const store = window.SharedStore;
+  if (!store) return;
+
+  // Update mapelData jika ada guru baru di SharedStore
+  if (store.guru) {
+    store.guru.forEach(g => {
+      const exists = mapelData.find(m => 
+        m.guru.toLowerCase().includes(g.nama.split(' ')[0].toLowerCase()) ||
+        (g.mapel && m.nama.toLowerCase() === g.mapel.toLowerCase())
+      );
+      
+      if (!exists && g.mapel && g.status === 'Aktif') {
+        const warna = ['#5F7161', '#1a6fa5', '#7d3c98', '#d68910', '#27ae60', '#c0392b'][mapelData.length % 6];
+        mapelData.push({
+          id:       mapelData.length + 1,
+          nama:     g.mapel,
+          guru:     g.nama,
+          inisial:  g.initials || g.nama.substring(0,2).toUpperCase(),
+          color:    warna,
+          bg:       warna + '22',
+          icon:     'fa-book',
+          nilaiRata: 0,
+        });
+      }
+    });
+  }
+
+  // Update badge counts
+  updateBadges();
+}
+
+function updateBadges() {
+  const badgeTugas = document.getElementById('badge-tugas');
+  if (badgeTugas) badgeTugas.textContent = tugasAll.filter(t => t.status === 'belum').length;
+  
+  const badgePeng = document.getElementById('badge-peng');
+  if (badgePeng) badgePeng.textContent = pengumumanData.filter(p => p.isNew).length;
+  
+  const notifDot = document.getElementById('notif-dot');
+  if (notifDot) {
+    const totalNotif = tugasAll.filter(t => t.status === 'belum').length + 
+                       pengumumanData.filter(p => p.isNew).length;
+    if (totalNotif > 0) {
+      notifDot.style.display = 'inline-block';
+    } else {
+      notifDot.style.display = 'none';
+    }
+  }
+}
+
+/* ════ DATA LOKAL ════ */
+let mapelData = [
+  { id:1, nama:'Basis Data',         guru:'Pak Irwan Saputra',  inisial:'IS', color:'#5F7161', bg:'#eef6f0', icon:'fa-database', nilaiRata:90 },
+  { id:2, nama:'Pemrograman Web',    guru:'Pak Andi Wibowo',    inisial:'AW', color:'#1a6fa5', bg:'#eaf4fb', icon:'fa-code',      nilaiRata:92 },
+  { id:3, nama:'PKK',                guru:'Bu Rina Hartati',    inisial:'RH', color:'#7d3c98', bg:'#f4f0fc', icon:'fa-laptop-code', nilaiRata:85 },
+  { id:4, nama:'Bahasa Inggris',     guru:'Bu Maya Putri',      inisial:'MP', color:'#d68910', bg:'#fef6e8', icon:'fa-language',  nilaiRata:90 },
+  { id:5, nama:'Matematika',         guru:'Pak Dedi Susanto',   inisial:'DS', color:'#27ae60', bg:'#eef6f0', icon:'fa-square-root-variable', nilaiRata:92 },
+  { id:6, nama:'Jaringan Komputer',  guru:'Pak Rudi Firmansyah',inisial:'RF', color:'#c0392b', bg:'#fef2f2', icon:'fa-network-wired', nilaiRata:80 },
 ];
 
 const tugasAll = [
-  { id:1, judul:'Kuis Trigonometri',     mapel:'Matematika',        guru:'Pak Irwan', tipe:'kuis',  deadline:'23 Feb 2026', status:'belum', nilai:null, daysLeft:1 },
-  { id:2, judul:'Tugas Limit Fungsi',    mapel:'Matematika',        guru:'Pak Irwan', tipe:'tugas', deadline:'25 Feb 2026', status:'belum', nilai:null, daysLeft:3 },
-  { id:3, judul:'Essay Pemrograman Web', mapel:'PKK',               guru:'Pak Andi',  tipe:'tugas', deadline:'2 Mar 2026',  status:'belum', nilai:null, daysLeft:8 },
-  { id:4, judul:'Latihan Integral',      mapel:'Matematika',        guru:'Pak Irwan', tipe:'tugas', deadline:'18 Feb 2026', status:'sudah', nilai:92,   kumpulTgl:'17 Feb 2026' },
-  { id:5, judul:'Kuis Kosakata Inggris', mapel:'Bahasa Inggris',    guru:'Bu Maya',   tipe:'kuis',  deadline:'15 Feb 2026', status:'sudah', nilai:88,   kumpulTgl:'14 Feb 2026' },
-  { id:6, judul:'Essay Teks Laporan',    mapel:'Bahasa Indonesia',  guru:'Bu Rina',   tipe:'tugas', deadline:'10 Feb 2026', status:'sudah', nilai:85,   kumpulTgl:'9 Feb 2026' },
-  { id:7, judul:'Kuis Algoritma',        mapel:'Pemrograman Dasar', guru:'Pak Rudi',  tipe:'kuis',  deadline:'5 Feb 2026',  status:'sudah', nilai:94,   kumpulTgl:'4 Feb 2026' },
-  { id:8, judul:'Latihan Teks Narasi',   mapel:'Bahasa Indonesia',  guru:'Bu Rina',   tipe:'tugas', deadline:'1 Feb 2026',  status:'sudah', nilai:80,   kumpulTgl:'1 Feb 2026' },
+  { id:1, judul:'Kuis ERD dan Normalisasi',    mapel:'Basis Data',       guru:'Pak Irwan', tipe:'kuis',  deadline:'23 Feb 2026', status:'belum', nilai:null, daysLeft:1 },
+  { id:2, judul:'Tugas DDL dan DML',           mapel:'Basis Data',       guru:'Pak Irwan', tipe:'tugas', deadline:'25 Feb 2026', status:'belum', nilai:null, daysLeft:3 },
+  { id:3, judul:'Project Database Perpustakaan', mapel:'Basis Data',     guru:'Pak Irwan', tipe:'tugas', deadline:'2 Mar 2026',  status:'belum', nilai:null, daysLeft:8 },
+  { id:4, judul:'Tugas Query Join',            mapel:'Basis Data',       guru:'Pak Irwan', tipe:'tugas', deadline:'18 Feb 2026', status:'sudah', nilai:92,   kumpulTgl:'17 Feb 2026' },
+  { id:5, judul:'Kuis Stored Procedure',       mapel:'Basis Data',       guru:'Pak Irwan', tipe:'kuis',  deadline:'15 Feb 2026', status:'sudah', nilai:88,   kumpulTgl:'14 Feb 2026' },
+  { id:6, judul:'Tugas HTML Form',             mapel:'Pemrograman Web',  guru:'Pak Andi',  tipe:'tugas', deadline:'20 Feb 2026', status:'sudah', nilai:90,   kumpulTgl:'19 Feb 2026' },
+  { id:7, judul:'Kuis CSS Dasar',              mapel:'Pemrograman Web',  guru:'Pak Andi',  tipe:'kuis',  deadline:'10 Feb 2026', status:'sudah', nilai:94,   kumpulTgl:'9 Feb 2026' },
+  { id:8, judul:'Tugas Perencanaan Produk',    mapel:'PKK',              guru:'Bu Rina',   tipe:'tugas', deadline:'12 Feb 2026', status:'sudah', nilai:85,   kumpulTgl:'11 Feb 2026' },
+  { id:9, judul:'Kuis Vocabulary',             mapel:'Bahasa Inggris',   guru:'Bu Maya',   tipe:'kuis',  deadline:'8 Feb 2026',  status:'sudah', nilai:90,   kumpulTgl:'7 Feb 2026' },
+  { id:10, judul:'Tugas Limit Fungsi',         mapel:'Matematika',       guru:'Pak Dedi',  tipe:'tugas', deadline:'5 Feb 2026',  status:'sudah', nilai:92,   kumpulTgl:'4 Feb 2026' },
+  { id:11, judul:'Kuis Jaringan Dasar',        mapel:'Jaringan Komputer',guru:'Pak Rudi',  tipe:'kuis',  deadline:'1 Feb 2026',  status:'sudah', nilai:80,   kumpulTgl:'1 Feb 2026' },
 ];
 
 const nilaiPerMapel = {
-  'Matematika':        [{ tugas:'Latihan Integral',      nilai:92   }, { tugas:'Kuis Trigonometri',    nilai:null }],
-  'Bahasa Inggris':    [{ tugas:'Kuis Kosakata Inggris', nilai:88   }],
-  'Bahasa Indonesia':  [{ tugas:'Essay Teks Laporan',    nilai:85   }, { tugas:'Latihan Teks Narasi',  nilai:80   }],
-  'PKK':               [],
-  'Pemrograman Dasar': [{ tugas:'Kuis Algoritma',        nilai:94   }],
-  'Jaringan Komputer': [],
+  'Basis Data':        [
+    { tugas:'Tugas Query Join',      nilai:92 },
+    { tugas:'Kuis Stored Procedure', nilai:88 },
+    { tugas:'Kuis ERD dan Normalisasi', nilai:null },
+    { tugas:'Tugas DDL dan DML',     nilai:null },
+    { tugas:'Project Database Perpustakaan', nilai:null }
+  ],
+  'Pemrograman Web':   [
+    { tugas:'Tugas HTML Form', nilai:90 },
+    { tugas:'Kuis CSS Dasar',  nilai:94 }
+  ],
+  'PKK':               [
+    { tugas:'Tugas Perencanaan Produk', nilai:85 }
+  ],
+  'Bahasa Inggris':    [
+    { tugas:'Kuis Vocabulary', nilai:90 }
+  ],
+  'Matematika':        [
+    { tugas:'Tugas Limit Fungsi', nilai:92 }
+  ],
+  'Jaringan Komputer': [
+    { tugas:'Kuis Jaringan Dasar', nilai:80 }
+  ],
 };
 
-const pengumumanData = [
-  { guru:'Pak Irwan', mapel:'Matematika',   judul:'Jadwal Ulangan Harian',       isi:'UH Trigonometri dilaksanakan Jumat, 28 Feb 2026 pukul 08.00. Mohon ingatkan putra/putri untuk mempersiapkan diri.', tgl:'20 Feb 2026', tag:'mapel', isNew:true },
-  { guru:'Bu Maya',   mapel:'B. Inggris',   judul:'Materi Tambahan Tersedia',    isi:'Video pembahasan Reading Comprehension telah diupload. Mohon anak-anak mengaksesnya sebelum kuis minggu depan.', tgl:'18 Feb 2026', tag:'mapel', isNew:true },
-  { guru:'Bu Rina',   mapel:'B. Indonesia', judul:'Perpanjangan Deadline Tugas', isi:'Deadline Essay Teks Eksposisi diperpanjang hingga 5 Maret 2026. Pastikan putra/putri menyelesaikannya tepat waktu.', tgl:'15 Feb 2026', tag:'umum', isNew:false },
-  { guru:'Pak Irwan', mapel:'Matematika',   judul:'Reminder Tugas Limit',        isi:'Tugas Limit Fungsi deadline 25 Feb. Mohon orang tua mengingatkan anak untuk segera menyelesaikan tugas ini.', tgl:'12 Feb 2026', tag:'mapel', isNew:false },
+let pengumumanData = [
+  { guru:'Pak Irwan', mapel:'Basis Data',   judul:'Jadwal Praktikum Basis Data',       isi:'Praktikum membuat database akan dilaksanakan Jumat, 28 Feb 2026 pukul 08.00. Mohon ingatkan putra/putri untuk mempersiapkan diri.', tgl:'20 Feb 2026', tag:'mapel', isNew:true },
+  { guru:'Pak Irwan', mapel:'Basis Data',   judul:'Materi Tambahan Tersedia',    isi:'Video tutorial Stored Procedure telah diupload. Mohon anak-anak mengaksesnya sebelum kuis minggu depan.', tgl:'18 Feb 2026', tag:'mapel', isNew:true },
+  { guru:'Bu Rina',   mapel:'PKK',          judul:'Perpanjangan Deadline Tugas', isi:'Deadline Tugas Perencanaan Produk diperpanjang hingga 5 Maret 2026. Pastikan putra/putri menyelesaikannya tepat waktu.', tgl:'15 Feb 2026', tag:'umum', isNew:false },
+  { guru:'Pak Irwan', mapel:'Basis Data',   judul:'Reminder Tugas DDL dan DML',  isi:'Tugas DDL dan DML deadline 25 Feb. Mohon orang tua mengingatkan anak untuk segera menyelesaikan tugas ini.', tgl:'12 Feb 2026', tag:'mapel', isNew:false },
+  { guru:'Pak Andi',  mapel:'Pemrograman Web',judul:'Info Nilai Tugas HTML',      isi:'Nilai Tugas HTML Form sudah keluar. Cek di menu Nilai ya!', tgl:'10 Feb 2026', tag:'mapel', isNew:false },
 ];
 
 let komentarList = [
-  { tipe:'semangat',       label:'Semangat Belajar!',  teks:'Ayo Aurel, semangat terus belajarnya! Mama yakin kamu bisa dapat nilai terbaik.',  tgl:'19 Feb 2026' },
-  { tipe:'bangga',         label:'Bangga sama Kamu',   teks:'Nilai Integralmu bagus banget, Nak! Mama sangat bangga sama kamu.',                 tgl:'18 Feb 2026' },
-  { tipe:'ingatkan',       label:'Ingat Tugasnya!',    teks:'Jangan lupa kerjakan Tugas Limit sebelum deadline ya sayang!',                      tgl:'14 Feb 2026' },
+  { tipe:'semangat', label:'Semangat Belajar!', teks:'Ayo Aurel, semangat terus belajarnya! Mama yakin kamu bisa dapat nilai terbaik di Basis Data.', tgl:'19 Feb 2026' },
+  { tipe:'bangga',   label:'Bangga sama Kamu',  teks:'Nilai Query Join kamu bagus banget, Nak! Mama sangat bangga sama kamu.',               tgl:'18 Feb 2026' },
+  { tipe:'ingatkan', label:'Ingat Tugasnya!',   teks:'Jangan lupa kerjakan Tugas DDL dan DML sebelum deadline ya sayang!',                    tgl:'14 Feb 2026' },
 ];
 
 const enumLabel = {
@@ -62,11 +139,11 @@ let selectedEnum = 'semangat';
 function navigateTo(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
   document.getElementById('page-' + page)?.classList.add('active');
 
   const navIdx = { dashboard:0, 'profil-anak':1, nilai:2, tugas:3, pengumuman:4, komentar:5 };
-  document.querySelectorAll('.nav-item')[navIdx[page] ?? 0]?.classList.add('active');
+  const navItems = document.querySelectorAll('.nav-item');
+  if (navItems[navIdx[page] ?? 0]) navItems[navIdx[page] ?? 0].classList.add('active');
 
   const titles = {
     dashboard:     ['Dashboard Orang Tua',  'Selamat datang, Ibu Aurel — Monitoring perkembangan anak'],
@@ -89,28 +166,36 @@ function navigateTo(page) {
 
 /* ════ PROFIL ANAK ════ */
 function renderProfilAnak() {
-  document.getElementById('mapel-profil-list').innerHTML = mapelData.map(m => `
-    <div class="mapel-profil-item">
-      <div class="mpi-icon" style="background:${m.bg};color:${m.color}">
-        <i class="fa-solid ${m.icon}"></i>
+  syncFromAdmin(); // Sync guru baru ke mapelData
+  
+  const mapelList = document.getElementById('mapel-profil-list');
+  if (mapelList) {
+    mapelList.innerHTML = mapelData.map(m => `
+      <div class="mapel-profil-item">
+        <div class="mpi-icon" style="background:${m.bg};color:${m.color}">
+          <i class="fa-solid ${m.icon}"></i>
+        </div>
+        <div class="mpi-info">
+          <h4>${m.nama}</h4>
+          <p>${m.guru}</p>
+        </div>
+        <div class="mpi-nilai" style="color:${nilaiColor(m.nilaiRata)}">${m.nilaiRata||'—'}</div>
       </div>
-      <div class="mpi-info">
-        <h4>${m.nama}</h4>
-        <p>${m.guru}</p>
-      </div>
-      <div class="mpi-nilai" style="color:${nilaiColor(m.nilaiRata)}">${m.nilaiRata}</div>
-    </div>
-  `).join('');
+    `).join('');
+  }
 
-  document.getElementById('guru-profil-list').innerHTML = mapelData.map(m => `
-    <div class="guru-profil-item">
-      <div class="gpi-avatar">${m.inisial}</div>
-      <div class="gpi-info">
-        <h4>${m.guru}</h4>
-        <p>${m.nama}</p>
+  const guruList = document.getElementById('guru-profil-list');
+  if (guruList) {
+    guruList.innerHTML = mapelData.map(m => `
+      <div class="guru-profil-item">
+        <div class="gpi-avatar">${m.inisial}</div>
+        <div class="gpi-info">
+          <h4>${m.guru}</h4>
+          <p>${m.nama}</p>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  }
 }
 
 /* ════ NILAI ════ */
@@ -121,7 +206,10 @@ function nilaiColor(n) {
 
 function renderNilai() {
   const selesai = tugasAll.filter(t => t.status === 'sudah');
-  document.getElementById('nilai-list').innerHTML = mapelData.map(m => {
+  const nilaiList = document.getElementById('nilai-list');
+  if (!nilaiList) return;
+  
+  nilaiList.innerHTML = mapelData.map(m => {
     const rows = selesai.filter(t => t.mapel === m.nama);
     if (!rows.length) return '';
     const dinilai = rows.filter(r => r.nilai);
@@ -146,7 +234,13 @@ function renderNilai() {
 }
 
 /* ════ TUGAS ════ */
-function countdownColor(d) { return d <= 1 ? 'red' : d <= 3 ? 'orange' : 'green'; }
+function countdownColor(d) { 
+  if (d <= 0) return 'red';
+  if (d <= 1) return 'red';
+  if (d <= 3) return 'orange'; 
+  return 'green'; 
+}
+
 function countdownLabel(d) {
   if (d <= 0) return 'Sudah lewat deadline!';
   if (d === 1) return 'Deadline besok!';
@@ -209,24 +303,41 @@ function renderTugas() {
   const aktif   = tugasAll.filter(t => t.status === 'belum');
   const selesai = tugasAll.filter(t => t.status === 'sudah');
 
-  document.getElementById('tugas-aktif-list').innerHTML = aktif.length
-    ? aktif.map(t => tugasCardHTML(t)).join('')
-    : '<div class="empty-state" style="background:#fff;border-radius:14px;padding:40px"><i class="fa-solid fa-circle-check" style="color:var(--primary)"></i><p>Semua tugas anak sudah dikumpulkan! 🎉</p></div>';
+  const aktifList = document.getElementById('tugas-aktif-list');
+  const selesaiList = document.getElementById('tugas-selesai-list');
+  const tabCountBelum = document.getElementById('tab-count-belum');
+  const tabCountSelesai = document.getElementById('tab-count-selesai');
+  const dashBelum = document.getElementById('dash-belum');
+  const dashSelesai = document.getElementById('dash-selesai');
+  const badgeTugas = document.getElementById('badge-tugas');
 
-  document.getElementById('tugas-selesai-list').innerHTML = selesai.length
-    ? selesai.map(t => tugasCardHTML(t)).join('')
-    : '<div class="empty-state" style="background:#fff;border-radius:14px;padding:40px"><i class="fa-solid fa-clipboard-list"></i><p>Belum ada tugas yang dikumpulkan.</p></div>';
+  if (aktifList) {
+    aktifList.innerHTML = aktif.length
+      ? aktif.map(t => tugasCardHTML(t)).join('')
+      : '<div class="empty-state" style="background:#fff;border-radius:14px;padding:40px"><i class="fa-solid fa-circle-check" style="color:var(--primary)"></i><p>Semua tugas anak sudah dikumpulkan! 🎉</p></div>';
+  }
 
-  document.getElementById('tab-count-belum').textContent   = aktif.length;
-  document.getElementById('tab-count-selesai').textContent = selesai.length;
-  document.getElementById('badge-tugas').textContent  = aktif.length;
-  document.getElementById('dash-belum').textContent   = aktif.length;
-  document.getElementById('dash-selesai').textContent = selesai.length;
+  if (selesaiList) {
+    selesaiList.innerHTML = selesai.length
+      ? selesai.map(t => tugasCardHTML(t)).join('')
+      : '<div class="empty-state" style="background:#fff;border-radius:14px;padding:40px"><i class="fa-solid fa-clipboard-list"></i><p>Belum ada tugas yang dikumpulkan.</p></div>';
+  }
+
+  if (tabCountBelum) tabCountBelum.textContent = aktif.length;
+  if (tabCountSelesai) tabCountSelesai.textContent = selesai.length;
+  if (badgeTugas) badgeTugas.textContent = aktif.length;
+  if (dashBelum) dashBelum.textContent = aktif.length;
+  if (dashSelesai) dashSelesai.textContent = selesai.length;
+  
+  updateBadges();
 }
 
 /* ════ PENGUMUMAN ════ */
 function renderPengumuman() {
-  document.getElementById('peng-list').innerHTML = pengumumanData.map(p => `
+  const pengList = document.getElementById('peng-list');
+  if (!pengList) return;
+  
+  pengList.innerHTML = pengumumanData.map(p => `
     <div class="peng-item ${p.isNew ? 'peng-unread' : ''}">
       <div class="peng-meta">
         <span class="peng-tag ${p.tag}">${p.tag === 'mapel' ? p.mapel : 'Umum'}</span>
@@ -237,13 +348,18 @@ function renderPengumuman() {
       <p>${p.isi}</p>
     </div>
   `).join('');
-
-  document.getElementById('badge-peng').textContent = pengumumanData.filter(p => p.isNew).length;
+  
+  const badge = document.getElementById('badge-peng');
+  if(badge) badge.textContent = pengumumanData.filter(p => p.isNew).length;
+  updateBadges();
 }
 
 /* ════ KOMENTAR ════ */
 function renderKomentar() {
-  document.getElementById('komentar-list').innerHTML = komentarList.length
+  const komentarListEl = document.getElementById('komentar-list');
+  if (!komentarListEl) return;
+  
+  komentarListEl.innerHTML = komentarList.length
     ? komentarList.map(k => `
       <div class="kom-item">
         <div class="kom-av-ortu">IA</div>
@@ -258,7 +374,8 @@ function renderKomentar() {
       </div>`).join('')
     : '<div class="empty-state"><i class="fa-solid fa-comment-dots"></i><p>Belum ada komentar yang dikirimkan.</p></div>';
 
-  document.getElementById('dash-komentar').textContent = komentarList.length;
+  const el = document.getElementById('dash-komentar');
+  if(el) el.textContent = komentarList.length;
 }
 
 /* ════ ENUM SELECTOR ════ */
@@ -270,9 +387,13 @@ function selectEnum(el) {
 
 /* ════ MODAL KOMENTAR ════ */
 function openKomentarModal() {
-  document.getElementById('kom-teks').value = '';
+  const teksArea = document.getElementById('kom-teks');
+  if (teksArea) teksArea.value = '';
+  
   document.querySelectorAll('.enum-opt').forEach(o => o.classList.remove('selected'));
-  document.querySelector('.enum-opt[data-val="semangat"]').classList.add('selected');
+  const defaultOpt = document.querySelector('.enum-opt[data-val="semangat"]');
+  if (defaultOpt) defaultOpt.classList.add('selected');
+  
   selectedEnum = 'semangat';
   openModal('modal-komentar');
 }
@@ -300,22 +421,40 @@ function switchTab(tabId, btn) {
 }
 
 /* ════ NOTIF ════ */
-function toggleNotif() {
-  document.getElementById('notif-panel').classList.toggle('open');
+function toggleNotif() { 
+  const panel = document.getElementById('notif-panel');
+  if (panel) panel.classList.toggle('open'); 
 }
+
 function markAllRead() {
   document.querySelectorAll('.notif-item.unread').forEach(el => el.classList.remove('unread'));
-  document.getElementById('notif-dot')?.remove();
+  const notifDot = document.getElementById('notif-dot');
+  if (notifDot) notifDot.style.display = 'none';
+  
+  // Tandai semua pengumuman sebagai sudah dibaca
+  pengumumanData.forEach(p => p.isNew = false);
+  updateBadges();
 }
+
 document.addEventListener('click', e => {
-  if (!e.target.closest('#notif-panel') && !e.target.closest('#notif-btn')) {
-    document.getElementById('notif-panel').classList.remove('open');
+  const panel = document.getElementById('notif-panel');
+  const btn = document.getElementById('notif-btn');
+  if (panel && !e.target.closest('#notif-panel') && !e.target.closest('#notif-btn')) {
+    panel.classList.remove('open');
   }
 });
 
 /* ════ MODAL ════ */
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openModal(id) {  
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.add('open'); 
+}
+
+function closeModal(id) { 
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.remove('open'); 
+}
+
 document.querySelectorAll('.modal-overlay').forEach(ov =>
   ov.addEventListener('click', e => { if (e.target === ov) closeModal(ov.id); })
 );
@@ -323,6 +462,8 @@ document.querySelectorAll('.modal-overlay').forEach(ov =>
 /* ════ TOAST ════ */
 function showToast(msg, type = 'success') {
   const c = document.getElementById('toast-container');
+  if (!c) return;
+  
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   const icon = type === 'success' ? '✅' : type === 'warn' ? '⚠️' : 'ℹ️';
@@ -331,15 +472,36 @@ function showToast(msg, type = 'success') {
   t.addEventListener('click', () => removeToast(t));
   setTimeout(() => removeToast(t), 4000);
 }
-function removeToast(t) {
-  t.classList.add('out');
-  setTimeout(() => t.remove(), 350);
+
+function removeToast(t) { 
+  t.classList.add('out'); 
+  setTimeout(() => t.remove(), 350); 
 }
 
 /* ════ HELPERS ════ */
 function today() {
-  return new Date().toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+  const d = new Date();
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
 }
-function doLogout() {
-  window.location.href = 'login.html';
+
+function doLogout() { 
+  if (confirm('Yakin ingin logout?')) {
+    window.location.href = 'login.html'; 
+  }
 }
+
+/* ════ INIT ════ */
+document.addEventListener('DOMContentLoaded', () => {
+  syncFromAdmin();
+  
+  // Update dashboard stats
+  const dashBelum = document.getElementById('dash-belum');
+  const dashSelesai = document.getElementById('dash-selesai');
+  const dashKomentar = document.getElementById('dash-komentar');
+  
+  if (dashBelum) dashBelum.textContent = tugasAll.filter(t => t.status === 'belum').length;
+  if (dashSelesai) dashSelesai.textContent = tugasAll.filter(t => t.status === 'sudah').length;
+  if (dashKomentar) dashKomentar.textContent = komentarList.length;
+  
+  updateBadges();
+});

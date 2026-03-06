@@ -27,13 +27,13 @@
     </div>
     <div class="nav-item" onclick="navigateTo('guru')">
       <i class="fa-solid fa-chalkboard-user"></i> Daftar Guru
-      <span class="badge">6</span>
+      <span class="badge">10</span>
     </div>
 
     <div class="nav-label">Akademik</div>
     <div class="nav-item" onclick="navigateTo('perangkat')">
       <i class="fa-solid fa-folder-open"></i> Perangkat Ajar
-      <span class="badge" id="badge-pa">12</span>
+      <span class="badge" id="badge-pa">10</span>
     </div>
     <div class="nav-item" onclick="navigateTo('evaluasi')">
       <i class="fa-solid fa-comment-dots"></i> Evaluasi & Komentar
@@ -88,15 +88,15 @@
     </div>
     <div class="notif-item unread">
       <div class="notif-dot-ind"></div>
-      <div class="notif-item-body"><h5>Perangkat ajar baru</h5><p>Ibu Sari mengunggah RPP Matematika XI — 10 menit lalu</p></div>
+      <div class="notif-item-body"><h5>Perangkat ajar baru</h5><p>Ibu Melyanah mengunggah RPP Pemrograman Web — 10 menit lalu</p></div>
     </div>
     <div class="notif-item unread">
       <div class="notif-dot-ind"></div>
-      <div class="notif-item-body"><h5>Perangkat ajar baru</h5><p>Pak Andi mengunggah modul Pemrograman Web — 1 jam lalu</p></div>
+      <div class="notif-item-body"><h5>Perangkat ajar baru</h5><p>Pak Irwan Saputra mengunggah modul Basis Data — 1 jam lalu</p></div>
     </div>
     <div class="notif-item">
       <div class="notif-dot-ind" style="background:transparent"></div>
-      <div class="notif-item-body"><h5>Komentar dibalas</h5><p>Bu Rina merespons evaluasi Anda — kemarin</p></div>
+      <div class="notif-item-body"><h5>Komentar dibalas</h5><p>Bu Endang merespons evaluasi Anda — kemarin</p></div>
     </div>
   </div>
 
@@ -111,19 +111,19 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-info"><label>Total Guru</label><h2>6</h2><p>Aktif mengajar</p></div>
+          <div class="stat-info"><label>Total Guru</label><h2>10</h2><p>Aktif mengajar</p></div>
           <div class="stat-icon blue"><i class="fa-solid fa-chalkboard-user"></i></div>
         </div>
         <div class="stat-card">
-          <div class="stat-info"><label>Perangkat Ajar</label><h2>12</h2><p>Diunggah bulan ini</p></div>
+          <div class="stat-info"><label>Perangkat Ajar</label><h2>10</h2><p>Diunggah bulan ini</p></div>
           <div class="stat-icon green"><i class="fa-solid fa-folder-open"></i></div>
         </div>
         <div class="stat-card">
-          <div class="stat-info"><label>Belum Direview</label><h2 id="stat-belum">4</h2><p>Perlu tindakan</p></div>
+          <div class="stat-info"><label>Belum Direview</label><h2 id="stat-belum">5</h2><p>Perlu tindakan</p></div>
           <div class="stat-icon orange"><i class="fa-solid fa-clock"></i></div>
         </div>
         <div class="stat-card">
-          <div class="stat-info"><label>Komentar Dikirim</label><h2 id="stat-komentar">9</h2><p>Semester ini</p></div>
+          <div class="stat-info"><label>Komentar Dikirim</label><h2 id="stat-komentar">0</h2><p>Semester ini</p></div>
           <div class="stat-icon purple"><i class="fa-solid fa-comment-dots"></i></div>
         </div>
       </div>
@@ -137,34 +137,8 @@
           <div style="overflow-x:auto">
             <table>
               <thead><tr><th>Guru</th><th>Judul</th><th>Mapel</th><th>Status</th><th>Aksi</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td><div class="cell-user"><div class="avatar-sm" style="background:#5F7161">SR</div><div><strong>Ibu Sari</strong><small>Matematika</small></div></div></td>
-                  <td>RPP Limit Fungsi XI</td><td>Matematika</td>
-                  <td><span class="badge-status belum-review">Belum Review</span></td>
-                  <td><div class="td-actions">
-                    <button class="btn-icon view" title="Lihat"><i class="fa-solid fa-eye"></i></button>
-                    <button class="btn-icon comment" title="Komentar" onclick="openKomentarModal('Ibu Sari Rahayu','RPP Limit Fungsi XI')"><i class="fa-solid fa-comment-dots"></i></button>
-                  </div></td>
-                </tr>
-                <tr>
-                  <td><div class="cell-user"><div class="avatar-sm" style="background:#1a6fa5">AN</div><div><strong>Pak Andi</strong><small>Pemrograman</small></div></div></td>
-                  <td>Modul Pemrograman Web</td><td>PKK</td>
-                  <td><span class="badge-status belum-review">Belum Review</span></td>
-                  <td><div class="td-actions">
-                    <button class="btn-icon view" title="Lihat"><i class="fa-solid fa-eye"></i></button>
-                    <button class="btn-icon comment" title="Komentar" onclick="openKomentarModal('Pak Andi Wibowo','Modul Pemrograman Web')"><i class="fa-solid fa-comment-dots"></i></button>
-                  </div></td>
-                </tr>
-                <tr>
-                  <td><div class="cell-user"><div class="avatar-sm" style="background:#7d3c98">RI</div><div><strong>Bu Rina</strong><small>B. Indonesia</small></div></div></td>
-                  <td>Silabus Teks Laporan</td><td>B. Indonesia</td>
-                  <td><span class="badge-status sudah-review">Sudah Review</span></td>
-                  <td><div class="td-actions">
-                    <button class="btn-icon view" title="Lihat"><i class="fa-solid fa-eye"></i></button>
-                    <button class="btn-icon comment" title="Komentar" onclick="openKomentarModal('Bu Rina Hartati','Silabus Teks Laporan')"><i class="fa-solid fa-comment-dots"></i></button>
-                  </div></td>
-                </tr>
+              <tbody id="dashboard-pa-tbody">
+                <!-- Akan diisi JS -->
               </tbody>
             </table>
           </div>
@@ -173,34 +147,15 @@
         <div style="display:flex;flex-direction:column;gap:16px">
           <div class="data-card">
             <div class="data-card-header"><h3>Aktivitas Terbaru</h3></div>
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="act-icon upload"><i class="fa-solid fa-upload"></i></div>
-                <div class="act-body"><h4>Ibu Sari mengunggah RPP</h4><p>RPP Limit Fungsi XI • 10 menit lalu</p></div>
-              </div>
-              <div class="activity-item">
-                <div class="act-icon comment"><i class="fa-solid fa-comment-dots"></i></div>
-                <div class="act-body"><h4>Anda memberi komentar</h4><p>ke Pak Andi • Modul Web • 1 jam lalu</p></div>
-              </div>
-              <div class="activity-item">
-                <div class="act-icon review"><i class="fa-solid fa-check-circle"></i></div>
-                <div class="act-body"><h4>Review selesai</h4><p>Silabus Bu Rina ditandai selesai • kemarin</p></div>
-              </div>
-              <div class="activity-item">
-                <div class="act-icon upload"><i class="fa-solid fa-upload"></i></div>
-                <div class="act-body"><h4>Pak Dedi mengunggah modul</h4><p>Modul Jaringan Komputer • 2 hari lalu</p></div>
-              </div>
+            <div class="activity-list" id="dashboard-activity">
+              <!-- Akan diisi JS -->
             </div>
           </div>
 
           <div class="data-card">
             <div class="data-card-header"><h3>Progress Review Bulanan</h3></div>
-            <div class="chart-wrap">
-              <div class="chart-bar-row"><label>Ibu Sari</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:60%"></div></div><span>3/5</span></div>
-              <div class="chart-bar-row"><label>Pak Andi</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:40%"></div></div><span>2/5</span></div>
-              <div class="chart-bar-row"><label>Bu Rina</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:80%"></div></div><span>4/5</span></div>
-              <div class="chart-bar-row"><label>Pak Dedi</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:20%"></div></div><span>1/5</span></div>
-              <div class="chart-bar-row"><label>Bu Maya</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%"></div></div><span>5/5</span></div>
+            <div class="chart-wrap" id="dashboard-progress">
+              <!-- Akan diisi JS -->
             </div>
           </div>
         </div>
@@ -229,7 +184,7 @@
             <div class="profile-card-banner"></div>
             <div class="profile-card-body">
               <div class="profile-avatar-wrap">
-                <div class="profile-avatar-lg" id="profil-avatar">SR</div>
+                <div class="profile-avatar-lg" id="profil-avatar">ML</div>
               </div>
               <div class="profile-card-name">
                 <h3 id="p-nama">—</h3>
@@ -322,8 +277,8 @@
           <div class="data-card">
             <div class="data-card-header"><h3>Ringkasan Evaluasi</h3></div>
             <div class="chart-wrap">
-              <div class="chart-bar-row"><label>Positif</label><div class="chart-bar-track"><div class="chart-bar-fill" id="bar-positif" style="width:66%"></div></div><span id="count-positif">6</span></div>
-              <div class="chart-bar-row"><label>Perbaikan</label><div class="chart-bar-track"><div class="chart-bar-fill" id="bar-perbaikan" style="width:33%;background:linear-gradient(90deg,#d68910,#f0b429)"></div></div><span id="count-perbaikan">3</span></div>
+              <div class="chart-bar-row"><label>Positif</label><div class="chart-bar-track"><div class="chart-bar-fill" id="bar-positif" style="width:0%"></div></div><span id="count-positif">0</span></div>
+              <div class="chart-bar-row"><label>Perbaikan</label><div class="chart-bar-track"><div class="chart-bar-fill" id="bar-perbaikan" style="width:0%;background:linear-gradient(90deg,#d68910,#f0b429)"></div></div><span id="count-perbaikan">0</span></div>
             </div>
           </div>
           <div class="data-card">
@@ -349,41 +304,26 @@
       <div class="monitoring-grid">
         <div class="monitoring-card">
           <div class="monitoring-card-header"><i class="fa-solid fa-chart-bar"></i><h3>Kelengkapan Perangkat Ajar</h3></div>
-          <div class="monitoring-card-body">
-            <div class="progress-item"><div class="progress-label"><span>Ibu Sari Rahayu</span><em>3/5</em></div><div class="progress-track"><div class="progress-fill green" style="width:60%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Pak Andi Wibowo</span><em>2/5</em></div><div class="progress-track"><div class="progress-fill blue" style="width:40%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Bu Rina Hartati</span><em>4/5</em></div><div class="progress-track"><div class="progress-fill green" style="width:80%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Pak Dedi Susanto</span><em>1/5</em></div><div class="progress-track"><div class="progress-fill orange" style="width:20%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Bu Maya Putri</span><em>5/5</em></div><div class="progress-track"><div class="progress-fill green" style="width:100%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Pak Rudi Firmansyah</span><em>3/5</em></div><div class="progress-track"><div class="progress-fill blue" style="width:60%"></div></div></div>
+          <div class="monitoring-card-body" id="monitoring-perangkat">
+            <!-- Akan diisi JS -->
           </div>
         </div>
         <div class="monitoring-card">
           <div class="monitoring-card-header"><i class="fa-solid fa-clipboard-check"></i><h3>Status Review Perangkat</h3></div>
-          <div class="monitoring-card-body">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;padding:8px 0 16px">
-              <div><div style="font-size:28px;font-weight:800;color:var(--primary)">8</div><div style="font-size:11px;color:var(--text-muted)">Sudah Review</div></div>
-              <div><div style="font-size:28px;font-weight:800;color:var(--warn)">4</div><div style="font-size:11px;color:var(--text-muted)">Belum Review</div></div>
-              <div><div style="font-size:28px;font-weight:800;color:var(--danger)">2</div><div style="font-size:11px;color:var(--text-muted)">Perlu Revisi</div></div>
-            </div>
-            <div class="progress-item"><div class="progress-label"><span>Progres Review</span><em>8/14</em></div><div class="progress-track"><div class="progress-fill green" style="width:57%"></div></div></div>
+          <div class="monitoring-card-body" id="monitoring-review">
+            <!-- Akan diisi JS -->
           </div>
         </div>
         <div class="monitoring-card">
           <div class="monitoring-card-header"><i class="fa-solid fa-book-open"></i><h3>Aktivitas per Kelas</h3></div>
-          <div class="monitoring-card-body">
-            <div class="progress-item"><div class="progress-label"><span>XI RPL 1</span><em>Aktif</em></div><div class="progress-track"><div class="progress-fill green" style="width:90%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>XI RPL 2</span><em>Aktif</em></div><div class="progress-track"><div class="progress-fill blue" style="width:75%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>XI TKJ 1</span><em>Aktif</em></div><div class="progress-track"><div class="progress-fill green" style="width:85%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>XII RPL 1</span><em>Aktif</em></div><div class="progress-track"><div class="progress-fill orange" style="width:65%"></div></div></div>
+          <div class="monitoring-card-body" id="monitoring-kelas">
+            <!-- Akan diisi JS -->
           </div>
         </div>
         <div class="monitoring-card">
           <div class="monitoring-card-header"><i class="fa-solid fa-star"></i><h3>Rekap Penilaian Siswa</h3></div>
-          <div class="monitoring-card-body">
-            <div class="progress-item"><div class="progress-label"><span>Rata-rata Nilai</span><em>82.4</em></div><div class="progress-track"><div class="progress-fill green" style="width:82%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Tugas Dikumpul</span><em>89%</em></div><div class="progress-track"><div class="progress-fill blue" style="width:89%"></div></div></div>
-            <div class="progress-item"><div class="progress-label"><span>Tepat Waktu</span><em>74%</em></div><div class="progress-track"><div class="progress-fill orange" style="width:74%"></div></div></div>
+          <div class="monitoring-card-body" id="monitoring-nilai">
+            <!-- Akan diisi JS -->
           </div>
         </div>
       </div>
@@ -403,17 +343,21 @@
       <label>Guru</label>
       <select class="form-control" id="kom-guru">
         <option value="">— Pilih Guru —</option>
-        <option>Ibu Sari Rahayu</option>
-        <option>Pak Andi Wibowo</option>
-        <option>Bu Rina Hartati</option>
-        <option>Pak Dedi Susanto</option>
-        <option>Bu Maya Putri</option>
-        <option>Pak Rudi Firmansyah</option>
+        <option>Melyanah</option>
+        <option>Irwan Saputra</option>
+        <option>Novi Widia Ningsih</option>
+        <option>Endang</option>
+        <option>Uday Zakaria</option>
+        <option>Gita Riyanti</option>
+        <option>Eni Lisnawati</option>
+        <option>Yenny Andrini</option>
+        <option>Miki Tanuwijaya</option>
+        <option>Sinung Kalimo N</option>
       </select>
     </div>
     <div class="form-group">
       <label>Konteks / Perangkat</label>
-      <input type="text" class="form-control" id="kom-perangkat" placeholder="Misal: RPP Limit Fungsi atau Umum"/>
+      <input type="text" class="form-control" id="kom-perangkat" placeholder="Misal: RPP Pemrograman Web atau Umum"/>
     </div>
     <div class="form-group">
       <label>Jenis Evaluasi</label>

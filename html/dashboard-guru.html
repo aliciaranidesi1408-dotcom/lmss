@@ -19,7 +19,7 @@
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
     <div class="nav-item active" onclick="navigateTo('dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
-    <div class="nav-item" onclick="navigateTo('kelas')"><i class="fa-solid fa-door-open"></i> Kelas Saya<span class="badge" id="badge-kelas">3</span></div>
+    <div class="nav-item" onclick="navigateTo('kelas')"><i class="fa-solid fa-door-open"></i> Kelas Saya<span class="badge" id="badge-kelas">4</span></div>
 
     <div class="nav-label">Pembelajaran</div>
     <div class="nav-item" onclick="navigateTo('materi')"><i class="fa-solid fa-book-open"></i> Materi</div>
@@ -34,7 +34,7 @@
   <div class="sidebar-footer">
     <div class="user-card">
       <div class="user-avatar">IW</div>
-      <div class="user-info"><h4>Irwan Setiawan</h4><p>Guru Matematika</p></div>
+      <div class="user-info"><h4>Irwan Saputra</h4><p>Guru Basis Data</p></div>
     </div>
     <div class="logout-btn" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
   </div>
@@ -45,7 +45,7 @@
   <div class="topbar">
     <div class="topbar-left">
       <h1 id="topbar-title">Dashboard Guru</h1>
-      <p id="topbar-sub">Selamat datang, Irwan Setiawan — SMK Negeri 12</p>
+      <p id="topbar-sub">Selamat datang, Irwan Saputra — SMK Negeri 12</p>
     </div>
     <div class="topbar-right">
       <div class="guru-tag"><i class="fa-solid fa-chalkboard-user"></i> Guru</div>
@@ -58,9 +58,9 @@
   <!-- NOTIF PANEL -->
   <div class="notif-panel" id="notif-panel">
     <div class="notif-header"><h4>Notifikasi</h4><span onclick="markAllRead()">Tandai dibaca</span></div>
-    <div class="notif-item unread"><div class="notif-dot-ind"></div><div class="notif-item-body"><h5>Tugas baru dikumpulkan</h5><p>Andi Pratama mengumpulkan Tugas Limit — 5 menit lalu</p></div></div>
+    <div class="notif-item unread"><div class="notif-dot-ind"></div><div class="notif-item-body"><h5>Tugas baru dikumpulkan</h5><p>Andi Pratama mengumpulkan Tugas DDL — 5 menit lalu</p></div></div>
     <div class="notif-item unread"><div class="notif-dot-ind"></div><div class="notif-item-body"><h5>Komentar dari Kepsek</h5><p>Kepsek memberi evaluasi pada RPP Anda — 2 jam lalu</p></div></div>
-    <div class="notif-item"><div class="notif-dot-ind" style="background:transparent"></div><div class="notif-item-body"><h5>Deadline besok</h5><p>Kuis Trigonometri XI RPL 1 deadline besok</p></div></div>
+    <div class="notif-item"><div class="notif-dot-ind" style="background:transparent"></div><div class="notif-item-body"><h5>Deadline besok</h5><p>Kuis Normalisasi XI RPL 1 deadline besok</p></div></div>
   </div>
 
   <div class="content">
@@ -70,10 +70,10 @@
       <div class="page-header"><h2>Dashboard Guru</h2><p>Ringkasan aktivitas mengajar dan perkembangan siswa Anda.</p></div>
 
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-info"><label>Kelas Diajar</label><h2>3</h2><p>Semester ini</p></div><div class="stat-icon blue"><i class="fa-solid fa-door-open"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><label>Total Siswa</label><h2>89</h2><p>Dari 3 kelas</p></div><div class="stat-icon green"><i class="fa-solid fa-users"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Kelas Diajar</label><h2>4</h2><p>Semester ini</p></div><div class="stat-icon blue"><i class="fa-solid fa-door-open"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Total Siswa</label><h2>124</h2><p>Dari 4 kelas</p></div><div class="stat-icon green"><i class="fa-solid fa-users"></i></div></div>
         <div class="stat-card"><div class="stat-info"><label>Tugas Aktif</label><h2 id="dash-tugas-aktif">5</h2><p>Belum deadline</p></div><div class="stat-icon orange"><i class="fa-solid fa-clipboard-list"></i></div></div>
-        <div class="stat-card"><div class="stat-info"><label>Belum Dinilai</label><h2 id="dash-belum-nilai">12</h2><p>Perlu tindakan</p></div><div class="stat-icon red"><i class="fa-solid fa-clock"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><label>Belum Dinilai</label><h2 id="dash-belum-nilai">15</h2><p>Perlu tindakan</p></div><div class="stat-icon red"><i class="fa-solid fa-clock"></i></div></div>
       </div>
 
       <div class="data-grid">
@@ -84,9 +84,10 @@
             <div style="overflow-x:auto"><table>
               <thead><tr><th>Kelas</th><th>Mapel</th><th>Siswa</th><th>Materi</th><th>Aksi</th></tr></thead>
               <tbody>
-                <tr><td><strong>XI RPL 1</strong></td><td>Matematika</td><td>30 siswa</td><td><span class="badge-status sudah">8 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XI RPL 1','Matematika')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
-                <tr><td><strong>XI RPL 2</strong></td><td>Matematika</td><td>28 siswa</td><td><span class="badge-status sudah">6 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XI RPL 2','Matematika')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
-                <tr><td><strong>XI TKJ 1</strong></td><td>Matematika</td><td>31 siswa</td><td><span class="badge-status belum">4 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XI TKJ 1','Matematika')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
+                <tr><td><strong>X RPL</strong></td><td>Basis Data</td><td>30 siswa</td><td><span class="badge-status sudah">5 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('X RPL','Basis Data')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
+                <tr><td><strong>XI RPL 1</strong></td><td>Basis Data</td><td>32 siswa</td><td><span class="badge-status sudah">8 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XI RPL 1','Basis Data')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
+                <tr><td><strong>XI RPL 2</strong></td><td>Basis Data</td><td>31 siswa</td><td><span class="badge-status sudah">7 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XI RPL 2','Basis Data')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
+                <tr><td><strong>XII RPL</strong></td><td>Basis Data</td><td>31 siswa</td><td><span class="badge-status belum">4 upload</span></td><td><button class="btn-icon view" onclick="bukaKelas('XII RPL','Basis Data')"><i class="fa-solid fa-arrow-right"></i></button></td></tr>
               </tbody>
             </table></div>
           </div>
@@ -94,10 +95,10 @@
           <!-- Tugas deadline dekat -->
           <div class="data-card">
             <div class="data-card-header"><h3><i class="fa-solid fa-clock" style="color:var(--warn);margin-right:6px"></i>Deadline Terdekat</h3><button class="btn-secondary" onclick="navigateTo('tugas')" style="font-size:12px;padding:6px 12px">Semua Tugas</button></div>
-            <div class="deadline-item"><div class="deadline-dot" style="background:var(--danger)"></div><div class="deadline-body"><h4>Kuis Trigonometri</h4><p>XI RPL 1 • 8 dari 30 belum kumpul</p></div><div class="deadline-date" style="color:var(--danger)">Besok</div></div>
-            <div class="deadline-item"><div class="deadline-dot" style="background:var(--warn)"></div><div class="deadline-body"><h4>Tugas Limit Fungsi</h4><p>XI RPL 2 • 5 dari 28 belum kumpul</p></div><div class="deadline-date" style="color:var(--warn)">25 Feb</div></div>
-            <div class="deadline-item"><div class="deadline-dot" style="background:var(--primary)"></div><div class="deadline-body"><h4>Latihan Integral</h4><p>XI TKJ 1 • 31 dari 31 sudah kumpul</p></div><div class="deadline-date">28 Feb</div></div>
-            <div class="deadline-item"><div class="deadline-dot" style="background:var(--primary)"></div><div class="deadline-body"><h4>Essay Aplikasi Matematika</h4><p>XI RPL 1 • 22 dari 30 sudah kumpul</p></div><div class="deadline-date">2 Mar</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--danger)"></div><div class="deadline-body"><h4>Tugas DDL dan DML</h4><p>XI RPL 1 • 8 dari 32 belum kumpul</p></div><div class="deadline-date" style="color:var(--danger)">Besok</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--warn)"></div><div class="deadline-body"><h4>Kuis Normalisasi</h4><p>XI RPL 2 • 5 dari 31 belum kumpul</p></div><div class="deadline-date" style="color:var(--warn)">25 Feb</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--primary)"></div><div class="deadline-body"><h4>Project Database Perpustakaan</h4><p>XII RPL • 31 dari 31 sudah kumpul</p></div><div class="deadline-date">28 Feb</div></div>
+            <div class="deadline-item"><div class="deadline-dot" style="background:var(--primary)"></div><div class="deadline-body"><h4>Latihan ERD</h4><p>X RPL • 20 dari 30 sudah kumpul</p></div><div class="deadline-date">2 Mar</div></div>
           </div>
         </div>
 
@@ -106,18 +107,19 @@
           <div class="data-card">
             <div class="data-card-header"><h3>Aktivitas Terbaru</h3></div>
             <div class="activity-list">
-              <div class="activity-item"><div class="act-icon upload"><i class="fa-solid fa-upload"></i></div><div class="act-body"><h4>Materi diupload</h4><p>Modul Integral XI RPL 1 • 30 menit lalu</p></div></div>
-              <div class="activity-item"><div class="act-icon tugas"><i class="fa-solid fa-clipboard-list"></i></div><div class="act-body"><h4>Tugas dikumpulkan</h4><p>Andi Pratama • Tugas Limit • 1 jam lalu</p></div></div>
-              <div class="activity-item"><div class="act-icon nilai"><i class="fa-solid fa-star"></i></div><div class="act-body"><h4>Nilai diberikan</h4><p>Kuis Trigonometri XI RPL 2 • 3 jam lalu</p></div></div>
-              <div class="activity-item"><div class="act-icon notif"><i class="fa-solid fa-bullhorn"></i></div><div class="act-body"><h4>Pengumuman dikirim</h4><p>Jadwal UH ke siswa XI TKJ 1 • kemarin</p></div></div>
+              <div class="activity-item"><div class="act-icon upload"><i class="fa-solid fa-upload"></i></div><div class="act-body"><h4>Materi diupload</h4><p>Modul Normalisasi 1NF-3NF • 30 menit lalu</p></div></div>
+              <div class="activity-item"><div class="act-icon tugas"><i class="fa-solid fa-clipboard-list"></i></div><div class="act-body"><h4>Tugas dikumpulkan</h4><p>Desi Alicia Rani • Tugas DDL • 1 jam lalu</p></div></div>
+              <div class="activity-item"><div class="act-icon nilai"><i class="fa-solid fa-star"></i></div><div class="act-body"><h4>Nilai diberikan</h4><p>Kuis ERD XI RPL 2 • 3 jam lalu</p></div></div>
+              <div class="activity-item"><div class="act-icon notif"><i class="fa-solid fa-bullhorn"></i></div><div class="act-body"><h4>Pengumuman dikirim</h4><p>Jadwal UH Basis Data ke siswa XII RPL • kemarin</p></div></div>
             </div>
           </div>
           <div class="data-card">
             <div class="data-card-header"><h3>Progress Pengumpulan Tugas</h3></div>
             <div class="chart-wrap">
-              <div class="chart-bar-row"><label>XI RPL 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:73%"></div></div><span>22/30</span></div>
-              <div class="chart-bar-row"><label>XI RPL 2</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:82%"></div></div><span>23/28</span></div>
-              <div class="chart-bar-row"><label>XI TKJ 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%"></div></div><span>31/31</span></div>
+              <div class="chart-bar-row"><label>X RPL</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:67%"></div></div><span>20/30</span></div>
+              <div class="chart-bar-row"><label>XI RPL 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:75%"></div></div><span>24/32</span></div>
+              <div class="chart-bar-row"><label>XI RPL 2</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:84%"></div></div><span>26/31</span></div>
+              <div class="chart-bar-row"><label>XII RPL</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%"></div></div><span>31/31</span></div>
             </div>
           </div>
         </div>
@@ -128,19 +130,24 @@
     <div class="page" id="page-kelas">
       <div class="page-header"><h2>Kelas Saya</h2><p>Kelola pembelajaran di setiap kelas yang Anda ampu.</p></div>
       <div class="kelas-grid">
-        <div class="kelas-card" onclick="bukaKelas('XI RPL 1','Matematika')">
+        <div class="kelas-card" onclick="bukaKelas('X RPL','Basis Data')">
           <div class="kelas-card-top"><div class="kelas-icon"><i class="fa-solid fa-door-open"></i></div><span class="badge-status aktif">Aktif</span></div>
-          <h3>XI RPL 1</h3><p>Matematika</p>
-          <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>30 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>8 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>4 Tugas</span></div>
+          <h3>X RPL</h3><p>Basis Data</p>
+          <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>30 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>5 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>3 Tugas</span></div>
         </div>
-        <div class="kelas-card" onclick="bukaKelas('XI RPL 2','Matematika')">
+        <div class="kelas-card" onclick="bukaKelas('XI RPL 1','Basis Data')">
           <div class="kelas-card-top"><div class="kelas-icon"><i class="fa-solid fa-door-open"></i></div><span class="badge-status aktif">Aktif</span></div>
-          <h3>XI RPL 2</h3><p>Matematika</p>
-          <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>28 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>6 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>3 Tugas</span></div>
+          <h3>XI RPL 1</h3><p>Basis Data</p>
+          <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>32 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>8 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>4 Tugas</span></div>
         </div>
-        <div class="kelas-card" onclick="bukaKelas('XI TKJ 1','Matematika')">
+        <div class="kelas-card" onclick="bukaKelas('XI RPL 2','Basis Data')">
           <div class="kelas-card-top"><div class="kelas-icon"><i class="fa-solid fa-door-open"></i></div><span class="badge-status aktif">Aktif</span></div>
-          <h3>XI TKJ 1</h3><p>Matematika</p>
+          <h3>XI RPL 2</h3><p>Basis Data</p>
+          <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>31 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>7 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>4 Tugas</span></div>
+        </div>
+        <div class="kelas-card" onclick="bukaKelas('XII RPL','Basis Data')">
+          <div class="kelas-card-top"><div class="kelas-icon"><i class="fa-solid fa-door-open"></i></div><span class="badge-status aktif">Aktif</span></div>
+          <h3>XII RPL</h3><p>Basis Data</p>
           <div class="kelas-meta"><span class="kelas-chip"><i class="fa-solid fa-users"></i>31 Siswa</span><span class="kelas-chip"><i class="fa-solid fa-book"></i>4 Materi</span><span class="kelas-chip"><i class="fa-solid fa-clipboard"></i>2 Tugas</span></div>
         </div>
       </div>
@@ -149,7 +156,7 @@
     <!-- ════ PAGE: DETAIL KELAS ════ -->
     <div class="page" id="page-detail-kelas">
       <button class="btn-back" onclick="navigateTo('kelas')"><i class="fa-solid fa-arrow-left"></i> Kembali ke Kelas</button>
-      <div class="page-header"><h2 id="detail-kelas-judul">XI RPL 1 — Matematika</h2><p id="detail-kelas-sub">Kelola materi, tugas, dan siswa kelas ini.</p></div>
+      <div class="page-header"><h2 id="detail-kelas-judul">XI RPL 1 — Basis Data</h2><p id="detail-kelas-sub">Kelola materi, tugas, dan siswa kelas ini.</p></div>
 
       <div class="tab-bar">
         <button class="tab-btn active" onclick="switchTab('tab-siswa',this)"><i class="fa-solid fa-users"></i> Daftar Siswa</button>
@@ -191,7 +198,7 @@
         <div class="table-header"><h3>Semua Materi</h3>
           <div class="table-controls">
             <input type="text" class="input-search" placeholder="Cari materi..."/>
-            <select class="input-search"><option value="">Semua Kelas</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XI TKJ 1</option></select>
+            <select class="input-search"><option value="">Semua Kelas</option><option>X RPL</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XII RPL</option></select>
             <button class="btn-primary" onclick="openModal('modal-upload-materi')"><i class="fa-solid fa-plus"></i> Upload</button>
           </div>
         </div>
@@ -214,7 +221,7 @@
         <div class="table-wrap">
           <div class="table-header"><h3>Semua Tugas</h3>
             <div class="table-controls">
-              <select class="input-search"><option>Semua Kelas</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XI TKJ 1</option></select>
+              <select class="input-search"><option>Semua Kelas</option><option>X RPL</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XII RPL</option></select>
               <button class="btn-primary" onclick="openModal('modal-buat-tugas')"><i class="fa-solid fa-plus"></i> Buat Tugas/Kuis</button>
             </div>
           </div>
@@ -250,13 +257,15 @@
     <div class="page" id="page-nilai">
       <div class="page-header"><h2>Nilai Siswa</h2><p>Rekap nilai semua tugas per kelas.</p></div>
       <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('nilai-tab-rpl1',this)">XI RPL 1</button>
-        <button class="tab-btn" onclick="switchTab('nilai-tab-rpl2',this)">XI RPL 2</button>
-        <button class="tab-btn" onclick="switchTab('nilai-tab-tkj1',this)">XI TKJ 1</button>
+        <button class="tab-btn active" onclick="switchTab('nilai-tab-xrpl',this)">X RPL</button>
+        <button class="tab-btn" onclick="switchTab('nilai-tab-xirpl1',this)">XI RPL 1</button>
+        <button class="tab-btn" onclick="switchTab('nilai-tab-xirpl2',this)">XI RPL 2</button>
+        <button class="tab-btn" onclick="switchTab('nilai-tab-xiirpl',this)">XII RPL</button>
       </div>
-      <div class="tab-content active" id="nilai-tab-rpl1"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XI RPL 1</h3><button class="btn-secondary"><i class="fa-solid fa-download"></i> Export</button></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>Tugas Limit</th><th>Kuis Trig.</th><th>Essay Aplik.</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-rpl1-tbody"></tbody></table></div></div></div>
-      <div class="tab-content" id="nilai-tab-rpl2"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XI RPL 2</h3></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>Tugas Limit</th><th>Kuis Trig.</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-rpl2-tbody"></tbody></table></div></div></div>
-      <div class="tab-content" id="nilai-tab-tkj1"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XI TKJ 1</h3></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>Latihan Integral</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-tkj1-tbody"></tbody></table></div></div></div>
+      <div class="tab-content active" id="nilai-tab-xrpl"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai X RPL</h3><button class="btn-secondary"><i class="fa-solid fa-download"></i> Export</button></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>ERD</th><th>DDL DML</th><th>Normalisasi</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-xrpl-tbody"></tbody></table></div></div></div>
+      <div class="tab-content" id="nilai-tab-xirpl1"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XI RPL 1</h3></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>DDL DML</th><th>ERD</th><th>Normalisasi</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-xirpl1-tbody"></tbody></table></div></div></div>
+      <div class="tab-content" id="nilai-tab-xirpl2"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XI RPL 2</h3></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>ERD Lanjut</th><th>Normalisasi</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-xirpl2-tbody"></tbody></table></div></div></div>
+      <div class="tab-content" id="nilai-tab-xiirpl"><div class="table-wrap"><div class="table-header"><h3>Rekap Nilai XII RPL</h3></div><div style="overflow-x:auto"><table><thead><tr><th>Siswa</th><th>Query Join</th><th>Stored Procedure</th><th>Rata-rata</th><th>Komentar</th></tr></thead><tbody id="nilai-xiirpl-tbody"></tbody></table></div></div></div>
     </div>
 
     <!-- ════ PAGE: PENGUMUMAN ════ -->
@@ -271,9 +280,10 @@
           <div class="data-card-header"><h3>Statistik</h3></div>
           <div class="chart-wrap">
             <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px">Pengiriman per kelas bulan ini</p>
-            <div class="chart-bar-row"><label>XI RPL 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:80%"></div></div><span>4</span></div>
-            <div class="chart-bar-row"><label>XI RPL 2</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:60%"></div></div><span>3</span></div>
-            <div class="chart-bar-row"><label>XI TKJ 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:40%"></div></div><span>2</span></div>
+            <div class="chart-bar-row"><label>X RPL</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:70%"></div></div><span>7</span></div>
+            <div class="chart-bar-row"><label>XI RPL 1</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:80%"></div></div><span>8</span></div>
+            <div class="chart-bar-row"><label>XI RPL 2</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:60%"></div></div><span>6</span></div>
+            <div class="chart-bar-row"><label>XII RPL</label><div class="chart-bar-track"><div class="chart-bar-fill" style="width:50%"></div></div><span>5</span></div>
           </div>
         </div>
       </div>
@@ -335,9 +345,9 @@
 <div class="modal-overlay" id="modal-upload-materi">
   <div class="modal">
     <div class="modal-title"><h3><i class="fa-solid fa-upload" style="color:var(--info)"></i> Upload Materi</h3><button class="modal-close" onclick="closeModal('modal-upload-materi')"><i class="fa-solid fa-xmark"></i></button></div>
-    <div class="form-group"><label>Judul Materi</label><input type="text" class="form-control" id="materi-judul" placeholder="Contoh: Modul Limit Fungsi"/></div>
+    <div class="form-group"><label>Judul Materi</label><input type="text" class="form-control" id="materi-judul" placeholder="Contoh: Modul Normalisasi Database"/></div>
     <div class="form-row">
-      <div class="form-group"><label>Kelas</label><select class="form-control" id="materi-kelas"><option>XI RPL 1</option><option>XI RPL 2</option><option>XI TKJ 1</option><option>Semua Kelas</option></select></div>
+      <div class="form-group"><label>Kelas</label><select class="form-control" id="materi-kelas"><option>X RPL</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XII RPL</option><option>Semua Kelas</option></select></div>
       <div class="form-group"><label>Tipe Materi</label><select class="form-control" id="materi-tipe"><option>Modul</option><option>Video</option><option>Presentasi</option><option>Dokumen</option><option>Link</option></select></div>
     </div>
     <div class="form-group"><label>Deskripsi</label><textarea class="form-control" id="materi-desc" placeholder="Deskripsi singkat materi..."></textarea></div>
@@ -363,7 +373,7 @@
       <div class="form-group"><label>Tipe</label><select class="form-control" id="tugas-tipe"><option value="tugas">Tugas</option><option value="kuis">Kuis</option></select></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Kelas</label><select class="form-control" id="tugas-kelas"><option>XI RPL 1</option><option>XI RPL 2</option><option>XI TKJ 1</option><option>Semua Kelas</option></select></div>
+      <div class="form-group"><label>Kelas</label><select class="form-control" id="tugas-kelas"><option>X RPL</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XII RPL</option><option>Semua Kelas</option></select></div>
       <div class="form-group"><label>Deadline</label><input type="datetime-local" class="form-control" id="tugas-deadline"/></div>
     </div>
     <div class="form-group"><label>Deskripsi / Soal</label><textarea class="form-control" id="tugas-desc" placeholder="Tuliskan instruksi tugas atau soal kuis..." style="min-height:100px"></textarea></div>
@@ -412,7 +422,7 @@
       </div>
       <div class="form-group"><label>Kelas</label>
         <select class="form-control" id="peng-kelas">
-          <option>XI RPL 1</option><option>XI RPL 2</option><option>XI TKJ 1</option><option>Semua Kelas</option>
+          <option>X RPL</option><option>XI RPL 1</option><option>XI RPL 2</option><option>XII RPL</option><option>Semua Kelas</option>
         </select>
       </div>
     </div>
@@ -425,7 +435,7 @@
 <div class="modal-overlay" id="modal-upload-pa">
   <div class="modal">
     <div class="modal-title"><h3><i class="fa-solid fa-folder-open" style="color:var(--primary)"></i> Upload Perangkat Ajar</h3><button class="modal-close" onclick="closeModal('modal-upload-pa')"><i class="fa-solid fa-xmark"></i></button></div>
-    <div class="form-group"><label>Judul Dokumen</label><input type="text" class="form-control" id="pa-judul" placeholder="Contoh: RPP Limit Fungsi Kelas XI"/></div>
+    <div class="form-group"><label>Judul Dokumen</label><input type="text" class="form-control" id="pa-judul" placeholder="Contoh: RPP Basis Data Kelas XI"/></div>
     <div class="form-group"><label>Tipe Dokumen</label>
       <select class="form-control" id="pa-tipe">
         <option>RPP</option><option>Silabus</option><option>Modul Ajar</option><option>Kisi-kisi</option><option>Prota / Prosem</option><option>Lainnya</option>

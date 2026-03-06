@@ -1,68 +1,152 @@
-/* ════════════════════════════════════
-   DATA
-════════════════════════════════════ */
-const GURU = { nama:'Irwan Setiawan', inisial:'IW', mapel:'Matematika', email:'irwan@gmail.com' };
+'use strict';
+/* ════════════════════════════════════════════════════════════
+   dashboard-guru.js
+   Membaca data dari window.SharedStore (diisi oleh admin.js).
+   Jika SharedStore belum ada (buka langsung), fallback ke data lokal.
+════════════════════════════════════════════════════════════ */
+
+/* ── HELPER: ambil SharedStore jika ada ── */
+function getSharedGuru() {
+  // Cari guru yang login (irwan@gmail.com)
+  const store = window.SharedStore;
+  if (store && store.guru) {
+    return store.guru.find(g => g.email === 'irwan@gmail.com') || null;
+  }
+  return null;
+}
+function getSharedSiswa(kelas) {
+  const store = window.SharedStore;
+  if (store && store.siswa) {
+    return store.siswa.filter(s => s.kelas === kelas);
+  }
+  return [];
+}
+
+/* ════ DATA LOKAL (fallback jika tidak ada SharedStore) ════ */
+const GURU = { nama:'Irwan Saputra', inisial:'IW', mapel:'Basis Data', email:'irwan@gmail.com' };
 
 const siswaData = {
+  'X RPL': [
+    {id:1,nama:'Andi Pratama',        nis:'2401001',warna:'#5F7161',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:85,komentar:''},
+    {id:2,nama:'Budi Santoso',        nis:'2401002',warna:'#1a6fa5',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:80,komentar:''},
+    {id:3,nama:'Citra Lestari',       nis:'2401003',warna:'#7d3c98',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:90,komentar:''},
+    {id:4,nama:'Dewi Sartika',        nis:'2401004',warna:'#d68910',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
+    {id:5,nama:'Eko Prasetyo',        nis:'2401005',warna:'#c0392b',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
+  ],
   'XI RPL 1': [
-    {id:1,nama:'Andi Pratama',    nis:'2301001',warna:'#5F7161',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:88,komentar:''},
-    {id:2,nama:'Bella Sari',     nis:'2301002',warna:'#1a6fa5',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:92,komentar:''},
-    {id:3,nama:'Cahyo Nugroho',  nis:'2301003',warna:'#7d3c98',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
-    {id:4,nama:'Dewi Lestari',   nis:'2301004',warna:'#d68910',bukaMateri:'sudah',kumpulTugas:'belum',nilai:null,komentar:''},
-    {id:5,nama:'Eko Prasetyo',   nis:'2301005',warna:'#c0392b',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:76,komentar:''},
+    {id:6,nama:'Desi Alicia Rani',     nis:'2301001',warna:'#5F7161',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:88,komentar:''},
+    {id:7,nama:'Callysta Aurelia',     nis:'2301002',warna:'#1a6fa5',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:92,komentar:''},
+    {id:8,nama:'Aurellia Putri',       nis:'2301003',warna:'#7d3c98',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:87,komentar:''},
+    {id:9,nama:'Fadlun Shahab',        nis:'2301004',warna:'#d68910',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:85,komentar:''},
+    {id:10,nama:'Citra Damayanti',     nis:'2301005',warna:'#c0392b',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
   ],
   'XI RPL 2': [
-    {id:6,nama:'Fajar Hidayat',  nis:'2302001',warna:'#27ae60',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:85,komentar:''},
-    {id:7,nama:'Gita Rahayu',    nis:'2302002',warna:'#5F7161',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
-    {id:8,nama:'Hendra Gunawan', nis:'2302003',warna:'#1a6fa5',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:90,komentar:''},
+    {id:11,nama:'Aisy Rahmah',         nis:'2302001',warna:'#27ae60',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:90,komentar:''},
+    {id:12,nama:'Alya Lukita Sari',    nis:'2302002',warna:'#5F7161',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:88,komentar:''},
+    {id:13,nama:'Alyfia Nuraini',      nis:'2302003',warna:'#1a6fa5',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:86,komentar:''},
+    {id:14,nama:'Muhammad Rizki',      nis:'2302004',warna:'#7d3c98',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
   ],
-  'XI TKJ 1': [
-    {id:9, nama:'Indah Permata',  nis:'2303001',warna:'#7d3c98',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:95,komentar:''},
-    {id:10,nama:'Joko Santoso',   nis:'2303002',warna:'#d68910',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:80,komentar:''},
-    {id:11,nama:'Kartika Dewi',   nis:'2303003',warna:'#c0392b',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
+  'XII RPL': [
+    {id:15,nama:'Indah Permata',       nis:'2203001',warna:'#7d3c98',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:95,komentar:''},
+    {id:16,nama:'Joko Santoso',        nis:'2203002',warna:'#d68910',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:82,komentar:''},
+    {id:17,nama:'Kartika Dewi',        nis:'2203003',warna:'#c0392b',bukaMateri:'belum',kumpulTugas:'belum',nilai:null,komentar:''},
+    {id:18,nama:'Lukman Hakim',        nis:'2203004',warna:'#27ae60',bukaMateri:'sudah',kumpulTugas:'sudah',nilai:88,komentar:''},
   ],
 };
 
+/* ════════════════════════════════════════════
+   SINKRONISASI: Merge siswa dari SharedStore
+   ke siswaData agar muncul di kelas guru
+════════════════════════════════════════════ */
+function syncSiswaFromAdmin() {
+  const store = window.SharedStore;
+  if (!store || !store.siswa) return;
+  store.siswa.forEach(s => {
+    // Cek apakah kelas siswa ini ada di data guru
+    if (!siswaData[s.kelas]) siswaData[s.kelas] = [];
+    const exists = siswaData[s.kelas].find(x => x.id === s.id);
+    if (!exists) {
+      // Tambahkan siswa baru dari admin
+      siswaData[s.kelas].push({
+        id: s.id,
+        nama: s.nama,
+        nis: s.nisn || s.nis || '—',
+        warna: s.bg || '#5F7161',
+        bukaMateri: 'belum',
+        kumpulTugas: 'belum',
+        nilai: null,
+        komentar: '',
+      });
+    } else {
+      // Update data yang berubah
+      exists.nama  = s.nama;
+      exists.nis   = s.nisn || s.nis || exists.nis;
+      exists.warna = s.bg   || exists.warna;
+    }
+  });
+}
+
 const materiData = [
-  {id:1,judul:'Modul Limit Fungsi',     kelas:'XI RPL 1',tipe:'Modul',    tgl:'15 Feb 2026',sudahBuka:25,totalSiswa:30},
-  {id:2,judul:'PPT Trigonometri',       kelas:'XI RPL 1',tipe:'Presentasi',tgl:'10 Feb 2026',sudahBuka:30,totalSiswa:30},
-  {id:3,judul:'Video Integral Dasar',   kelas:'XI RPL 2',tipe:'Video',    tgl:'18 Feb 2026',sudahBuka:20,totalSiswa:28},
-  {id:4,judul:'Modul Persamaan Kuadrat',kelas:'XI TKJ 1',tipe:'Modul',    tgl:'12 Feb 2026',sudahBuka:28,totalSiswa:31},
-  {id:5,judul:'Latihan Soal Statistika',kelas:'XI RPL 2',tipe:'Dokumen',  tgl:'5 Feb 2026', sudahBuka:15,totalSiswa:28},
+  {id:1,judul:'Modul ERD',                kelas:'X RPL',    tipe:'Modul',    tgl:'15 Feb 2026',sudahBuka:20,totalSiswa:25},
+  {id:2,judul:'PPT Normalisasi 1NF-3NF',   kelas:'XI RPL 1', tipe:'Presentasi',tgl:'10 Feb 2026',sudahBuka:28,totalSiswa:32},
+  {id:3,judul:'Video DDL dan DML',         kelas:'XI RPL 2', tipe:'Video',    tgl:'18 Feb 2026',sudahBuka:24,totalSiswa:28},
+  {id:4,judul:'Modul Query Join',           kelas:'XII RPL',  tipe:'Modul',    tgl:'12 Feb 2026',sudahBuka:26,totalSiswa:31},
+  {id:5,judul:'Latihan Stored Procedure',   kelas:'XII RPL',  tipe:'Dokumen',  tgl:'5 Feb 2026', sudahBuka:20,totalSiswa:31},
+  {id:6,judul:'PPT Basis Data Lanjutan',    kelas:'XII RPL',  tipe:'Presentasi',tgl:'20 Feb 2026',sudahBuka:15,totalSiswa:31},
 ];
 
 const tugasData = [
-  {id:1,judul:'Tugas Limit Fungsi',     kelas:'XI RPL 1',tipe:'tugas',deadline:'25 Feb 2026',kumpul:22,total:30,selesai:false},
-  {id:2,judul:'Kuis Trigonometri',      kelas:'XI RPL 1',tipe:'kuis', deadline:'23 Feb 2026',kumpul:22,total:30,selesai:false},
-  {id:3,judul:'Tugas Integral Dasar',   kelas:'XI TKJ 1',tipe:'tugas',deadline:'28 Feb 2026',kumpul:31,total:31,selesai:true},
-  {id:4,judul:'Essay Aplikasi Matematika',kelas:'XI RPL 1',tipe:'tugas',deadline:'2 Mar 2026',kumpul:22,total:30,selesai:false},
-  {id:5,judul:'Kuis Persamaan Kuadrat', kelas:'XI RPL 2',tipe:'kuis', deadline:'1 Mar 2026',kumpul:20,total:28,selesai:false},
+  {id:1,judul:'Tugas ERD',                 kelas:'X RPL',    tipe:'tugas',deadline:'25 Feb 2026',kumpul:18,total:25,selesai:false},
+  {id:2,judul:'Kuis Normalisasi',           kelas:'XI RPL 1', tipe:'kuis', deadline:'23 Feb 2026',kumpul:24,total:32,selesai:false},
+  {id:3,judul:'Tugas DDL dan DML',          kelas:'XI RPL 2', tipe:'tugas',deadline:'28 Feb 2026',kumpul:26,total:28,selesai:false},
+  {id:4,judul:'Project Database Perpustakaan',kelas:'XII RPL', tipe:'tugas',deadline:'2 Mar 2026',kumpul:28,total:31,selesai:false},
+  {id:5,judul:'Kuis Query Join',            kelas:'XII RPL',  tipe:'kuis', deadline:'1 Mar 2026', kumpul:25,total:31,selesai:false},
 ];
 
 const paData = [
-  {id:1,judul:'RPP Limit Fungsi XI',    tipe:'RPP',    tgl:'20 Feb 2026',status:'belum-review'},
-  {id:2,judul:'Silabus Matematika Genap',tipe:'Silabus',tgl:'10 Feb 2026',status:'sudah-review'},
-  {id:3,judul:'Modul Trigonometri',     tipe:'Modul',  tgl:'5 Jan 2026', status:'sudah-review'},
-  {id:4,judul:'Kisi-kisi UH Semester',  tipe:'Kisi-kisi',tgl:'15 Jan 2026',status:'perlu-revisi'},
-  {id:5,judul:'Program Tahunan',        tipe:'Prota',  tgl:'3 Jan 2026', status:'sudah-review'},
-  {id:6,judul:'RPP Integral Dasar',     tipe:'RPP',    tgl:'19 Feb 2026',status:'belum-review'},
+  {id:1,judul:'RPP Basis Data Kelas X',     tipe:'RPP',    tgl:'20 Feb 2026',status:'belum-review'},
+  {id:2,judul:'Silabus Basis Data Genap',   tipe:'Silabus',tgl:'10 Feb 2026',status:'sudah-review'},
+  {id:3,judul:'Modul ERD Kelas XI',         tipe:'Modul Ajar',  tgl:'5 Jan 2026', status:'sudah-review'},
+  {id:4,judul:'Kisi-kisi UH Semester',      tipe:'Kisi-kisi',tgl:'15 Jan 2026',status:'perlu-revisi'},
+  {id:5,judul:'Program Tahunan Basis Data', tipe:'Prota',  tgl:'3 Jan 2026', status:'sudah-review'},
+  {id:6,judul:'RPP Query Join',             tipe:'RPP',    tgl:'19 Feb 2026',status:'belum-review'},
 ];
 
 const komentarKepsek = [
-  {tipe:'positif',  teks:'Modul Trigonometri sangat terstruktur dan mudah dipahami siswa. Pertahankan kualitasnya!', pa:'Modul Trigonometri',tgl:'10 Feb 2026'},
+  {tipe:'positif',  teks:'Modul ERD sangat terstruktur dan mudah dipahami siswa. Pertahankan kualitasnya!', pa:'Modul ERD Kelas XI',tgl:'10 Feb 2026'},
   {tipe:'perbaikan',teks:'Kisi-kisi UH perlu disesuaikan dengan KD yang diajarkan di semester ini. Mohon direvisi.', pa:'Kisi-kisi UH Semester',tgl:'18 Jan 2026'},
-  {tipe:'positif',  teks:'Silabus Matematika sangat komprehensif. RPP sudah sesuai standar K-13.', pa:'Silabus Matematika Genap',tgl:'12 Feb 2026'},
+  {tipe:'positif',  teks:'Silabus Basis Data sangat komprehensif. RPP sudah sesuai standar K-13.', pa:'Silabus Basis Data Genap',tgl:'12 Feb 2026'},
 ];
 
 let pengumumanList = [
-  {judul:'Jadwal Ulangan Harian',target:'siswa',kelas:'XI RPL 1',isi:'UH Trigonometri akan dilaksanakan Jumat, 28 Feb 2026 pukul 08.00 WIB. Pelajari materi limit dan trigonometri.',tgl:'20 Feb 2026'},
-  {judul:'Reminder Pengumpulan Tugas',target:'ortu',kelas:'XI TKJ 1',isi:'Mohon ingatkan putra/putri Bapak/Ibu untuk segera mengumpulkan Tugas Integral sebelum deadline 28 Feb.',tgl:'19 Feb 2026'},
-  {judul:'Link Materi Tambahan',target:'semua',kelas:'XI RPL 2',isi:'Link video pembahasan soal Integral telah diupload di LMS. Silakan akses melalui menu Materi.',tgl:'15 Feb 2026'},
+  {judul:'Jadwal Ulangan Harian',   target:'siswa',kelas:'XI RPL 1',isi:'UH Basis Data akan dilaksanakan Jumat, 28 Feb 2026 pukul 08.00 WIB. Pelajari materi ERD dan Normalisasi.',tgl:'20 Feb 2026'},
+  {judul:'Reminder Pengumpulan Tugas',target:'ortu',kelas:'XII RPL',isi:'Mohon ingatkan putra/putri Bapak/Ibu untuk segera mengumpulkan Tugas Stored Procedure sebelum deadline 28 Feb.',tgl:'19 Feb 2026'},
+  {judul:'Link Materi Tambahan',    target:'semua',kelas:'XI RPL 2',isi:'Link video pembahasan soal DDL dan DML telah diupload di LMS. Silakan akses melalui menu Materi.',tgl:'15 Feb 2026'},
 ];
 
-let currentKelas = 'XI RPL 1';
-let currentTugasId = null;
+let currentKelas     = 'XI RPL 1';
+let currentTugasId   = null;
 let komentarSiswaTarget = null;
+
+/* ════════════════════════════════════
+   UPDATE TOPBAR DARI SHARED STORE
+════════════════════════════════════ */
+function syncGuruProfile() {
+  const shared = getSharedGuru();
+  if (!shared) return;
+  // Update nama di topbar / header jika ada
+  const elNama = document.getElementById('guru-nama-display');
+  if (elNama) elNama.textContent = shared.nama;
+  
+  // Update sidebar user info
+  const userAvatar = document.querySelector('.user-avatar');
+  const userInfoH4 = document.querySelector('.user-info h4');
+  const userInfoP = document.querySelector('.user-info p');
+  
+  if (userAvatar) userAvatar.textContent = shared.inisial || 'IW';
+  if (userInfoH4) userInfoH4.textContent = shared.nama || 'Irwan Saputra';
+  if (userInfoP) userInfoP.textContent = `Guru ${shared.mapel || 'Basis Data'}`;
+}
 
 /* ════════════════════════════════════
    NAVIGATION
@@ -84,16 +168,16 @@ function navigateTo(page) {
   if (navItems[idx]) navItems[idx].classList.add('active');
 
   const titleMap = {
-    dashboard:       ['Dashboard Guru',         'Selamat datang, Irwan Setiawan — SMK Negeri 12'],
-    kelas:           ['Kelas Saya',              'Kelola pembelajaran di setiap kelas'],
-    'detail-kelas':  ['Detail Kelas',            'Siswa, materi, dan tugas kelas ini'],
-    materi:          ['Materi',                  'Semua materi yang telah diupload'],
-    tugas:           ['Tugas & Kuis',            'Buat dan kelola tugas untuk siswa'],
-    'detail-tugas':  ['Penilaian Tugas',         'Beri nilai dan komentar siswa'],
-    nilai:           ['Nilai Siswa',             'Rekap nilai semua tugas per kelas'],
-    pengumuman:      ['Pengumuman',              'Kirim info ke siswa dan orang tua'],
-    perangkat:       ['Perangkat Ajar',          'Upload dokumen ke Kepala Sekolah'],
-    'komentar-kepsek':['Komentar Kepsek',        'Evaluasi dari Kepala Sekolah'],
+    dashboard:          ['Dashboard Guru',         'Selamat datang, Irwan Saputra — SMK Negeri 12'],
+    kelas:              ['Kelas Saya',              'Kelola pembelajaran di setiap kelas'],
+    'detail-kelas':     ['Detail Kelas',            'Siswa, materi, dan tugas kelas ini'],
+    materi:             ['Materi',                  'Semua materi yang telah diupload'],
+    tugas:              ['Tugas & Kuis',            'Buat dan kelola tugas untuk siswa'],
+    'detail-tugas':     ['Penilaian Tugas',         'Beri nilai dan komentar siswa'],
+    nilai:              ['Nilai Siswa',             'Rekap nilai semua tugas per kelas'],
+    pengumuman:         ['Pengumuman',              'Kirim info ke siswa dan orang tua'],
+    perangkat:          ['Perangkat Ajar',          'Upload dokumen ke Kepala Sekolah'],
+    'komentar-kepsek':  ['Komentar Kepsek',         'Evaluasi dari Kepala Sekolah'],
   };
   const [title, sub] = titleMap[page] || titleMap.dashboard;
   document.getElementById('topbar-title').textContent = title;
@@ -114,12 +198,12 @@ function bukaKelas(kelas, mapel) {
   currentKelas = kelas;
   document.getElementById('detail-kelas-judul').textContent = kelas + ' — ' + mapel;
   document.getElementById('detail-kelas-sub').textContent   = 'Kelola siswa, materi, dan tugas kelas ini.';
+  syncSiswaFromAdmin(); // ← SYNC dari SharedStore setiap kali kelas dibuka
   renderSiswaTable();
   renderMateriKelas();
   renderTugasKelas();
-  // reset tabs
-  document.querySelectorAll('#page-detail-kelas .tab-btn').forEach((b,i)=>{b.classList.toggle('active',i===0);});
-  document.querySelectorAll('#page-detail-kelas .tab-content').forEach((c,i)=>{c.classList.toggle('active',i===0);});
+  document.querySelectorAll('#page-detail-kelas .tab-btn').forEach((b,i) => b.classList.toggle('active',i===0));
+  document.querySelectorAll('#page-detail-kelas .tab-content').forEach((c,i) => c.classList.toggle('active',i===0));
   navigateTo('detail-kelas');
 }
 
@@ -168,23 +252,27 @@ function renderMateriKelas() {
       <td><span class="kelas-chip">${m.tipe}</span></td>
       <td>${m.tgl}</td>
       <td><span class="badge-status ${m.sudahBuka===m.totalSiswa?'sudah':'belum'}">${m.sudahBuka}/${m.totalSiswa}</span></td>
-      <td><div class="td-actions"><button class="btn-icon view"><i class="fa-solid fa-eye"></i></button><button class="btn-icon del" onclick="hapusMateri(${m.id})"><i class="fa-solid fa-trash"></i></button></div></td>
+      <td><div class="td-actions">
+        <button class="btn-icon view"><i class="fa-solid fa-eye"></i></button>
+        <button class="btn-icon del" onclick="hapusMateri(${m.id})"><i class="fa-solid fa-trash"></i></button>
+      </div></td>
     </tr>
   `).join('') : `<tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>Belum ada materi untuk kelas ini.</p></div></td></tr>`;
 }
 
 function renderTugasKelas() {
   const rows = tugasData.filter(t => t.kelas === currentKelas);
-  document.getElementById('tugas-kelas-tbody').innerHTML = rows.length ? rows.map(t => `
-    <tr>
+  document.getElementById('tugas-kelas-tbody').innerHTML = rows.length ? rows.map(t => {
+    const belum = t.total - t.kumpul;
+    return `<tr>
       <td><strong>${t.judul}</strong></td>
       <td><span class="kelas-chip">${t.tipe==='kuis'?'Kuis':'Tugas'}</span></td>
       <td>${t.deadline}</td>
       <td><span class="badge-status sudah">${t.kumpul}</span></td>
-      <td><span class="badge-status belum">${t.total-t.kumpul}</span></td>
+      <td><span class="badge-status ${belum>0?'belum':'sudah'}">${belum}</span></td>
       <td><button class="btn-icon view" onclick="bukaPenilaian(${t.id})"><i class="fa-solid fa-arrow-right"></i></button></td>
-    </tr>
-  `).join('') : `<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-clipboard-list"></i><p>Belum ada tugas untuk kelas ini.</p></div></td></tr>`;
+    </tr>`;
+  }).join('') : `<tr><td colspan="6"><div class="empty-state"><i class="fa-solid fa-clipboard-list"></i><p>Belum ada tugas untuk kelas ini.</p></div></td></tr>`;
 }
 
 /* ════════════════════════════════════
@@ -199,7 +287,10 @@ function renderAllMateri() {
       <td>${m.tgl}</td>
       <td><span class="badge-status sudah">${m.sudahBuka}</span></td>
       <td><span class="badge-status ${m.sudahBuka<m.totalSiswa?'belum':'sudah'}">${m.totalSiswa-m.sudahBuka}</span></td>
-      <td><div class="td-actions"><button class="btn-icon view"><i class="fa-solid fa-eye"></i></button><button class="btn-icon del" onclick="hapusMateri(${m.id})"><i class="fa-solid fa-trash"></i></button></div></td>
+      <td><div class="td-actions">
+        <button class="btn-icon view"><i class="fa-solid fa-eye"></i></button>
+        <button class="btn-icon del" onclick="hapusMateri(${m.id})"><i class="fa-solid fa-trash"></i></button>
+      </div></td>
     </tr>
   `).join('');
 }
@@ -231,7 +322,6 @@ function hapusMateri(id) {
 function renderAllTugas() {
   const renderRow = (t, cols) => {
     const belum = t.total - t.kumpul;
-    const stat  = t.selesai ? 'sudah' : (belum>0?'belum':'sudah');
     if (cols === 'all') return `<tr>
       <td><strong>${t.judul}</strong></td><td>${t.kelas}</td>
       <td><span class="kelas-chip">${t.tipe==='kuis'?'Kuis':'Tugas'}</span></td>
@@ -244,7 +334,7 @@ function renderAllTugas() {
     if (cols === 'aktif') return `<tr>
       <td><strong>${t.judul}</strong></td><td>${t.kelas}</td><td>${t.deadline}</td>
       <td><span class="badge-status sudah">${t.kumpul}/${t.total}</span></td>
-      <td><span class="badge-status belum">${belum}</span></td>
+      <td><span class="badge-status ${belum>0?'belum':'sudah'}">${belum}</span></td>
       <td><button class="btn-icon view" onclick="bukaPenilaian(${t.id})"><i class="fa-solid fa-arrow-right"></i></button></td>
     </tr>`;
     return `<tr>
@@ -253,23 +343,26 @@ function renderAllTugas() {
       <td><button class="btn-icon view" onclick="bukaPenilaian(${t.id})"><i class="fa-solid fa-arrow-right"></i></button></td>
     </tr>`;
   };
-  document.getElementById('all-tugas-tbody').innerHTML    = tugasData.map(t=>renderRow(t,'all')).join('');
-  document.getElementById('aktif-tugas-tbody').innerHTML  = tugasData.filter(t=>!t.selesai).map(t=>renderRow(t,'aktif')).join('');
-  document.getElementById('selesai-tugas-tbody').innerHTML= tugasData.filter(t=>t.selesai).map(t=>renderRow(t,'selesai')).join('');
+  document.getElementById('all-tugas-tbody').innerHTML     = tugasData.map(t=>renderRow(t,'all')).join('');
+  document.getElementById('aktif-tugas-tbody').innerHTML   = tugasData.filter(t=>!t.selesai).map(t=>renderRow(t,'aktif')).join('');
+  document.getElementById('selesai-tugas-tbody').innerHTML = tugasData.filter(t=>t.selesai).map(t=>renderRow(t,'selesai')).join('');
 }
 
 function submitTugas() {
   const judul = document.getElementById('tugas-judul').value.trim();
   if (!judul) { showToast('Judul tugas wajib diisi!','warn'); return; }
-  const kelas   = document.getElementById('tugas-kelas').value;
-  const tipe    = document.getElementById('tugas-tipe').value;
-  const deadline= document.getElementById('tugas-deadline').value;
+  const kelas      = document.getElementById('tugas-kelas').value;
+  const tipe       = document.getElementById('tugas-tipe').value;
+  const deadline   = document.getElementById('tugas-deadline').value;
+  // Format deadline
+  const deadlineFormatted = deadline ? new Date(deadline).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) : '—';
   const totalSiswa = siswaData[kelas]?.length || 30;
-  tugasData.unshift({id:Date.now(),judul,kelas,tipe,deadline:deadline||'—',kumpul:0,total:totalSiswa,selesai:false});
+  tugasData.unshift({id:Date.now(),judul,kelas,tipe,deadline:deadlineFormatted,kumpul:0,total:totalSiswa,selesai:false});
   closeModal('modal-buat-tugas');
   document.getElementById('tugas-judul').value='';
   renderAllTugas(); renderTugasKelas();
-  document.getElementById('dash-tugas-aktif').textContent = tugasData.filter(t=>!t.selesai).length;
+  const el = document.getElementById('dash-tugas-aktif');
+  if(el) el.textContent = tugasData.filter(t=>!t.selesai).length;
   showToast('Tugas "'+judul+'" berhasil dibuat!','success');
 }
 
@@ -313,32 +406,94 @@ function simpanSemuaNilai() {
     if (el && el.value !== '') { s.nilai = parseInt(el.value); count++; }
   });
   showToast(count + ' nilai berhasil disimpan!','success');
-  document.getElementById('dash-belum-nilai').textContent = 
+  const elBelum = document.getElementById('dash-belum-nilai');
+  if(elBelum) elBelum.textContent =
     Object.values(siswaData).flat().filter(s=>s.kumpulTugas==='sudah'&&s.nilai===null).length;
 }
 
 /* ════════════════════════════════════
    NILAI
 ════════════════════════════════════ */
-function nilaiRow(s) {
-  const avg = s.nilai || '—';
-  const warna = s.nilai>=90?'var(--primary)':s.nilai>=75?'var(--warn)':'var(--danger)';
+function nilaiRowXrpl(s) {
   return `<tr>
     <td><div class="cell-user">
       <div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
       <div><strong>${s.nama}</strong><small>${s.nis}</small></div>
     </div></td>
-    <td><strong style="color:${typeof avg==='number'?warna:'var(--text-muted)'}">${avg}</strong></td>
-    <td><strong style="color:${typeof avg==='number'?warna:'var(--text-muted)'}">${avg!=='—'?Math.max(0,avg-5):'—'}</strong></td>
-    <td><strong style="color:${typeof avg==='number'?warna:'var(--text-muted)'}">${avg!=='—'?Math.min(100,avg+3):'—'}</strong></td>
-    <td><strong style="color:${typeof avg==='number'?warna:'var(--text-muted)'}">${avg}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai ? Math.max(0, s.nilai-5) : '—'}</strong></td>
+    <td><strong>${s.nilai ? Math.min(100, s.nilai+3) : '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
     <td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td>
   </tr>`;
 }
+
+function nilaiRowXirpl1(s) {
+  return `<tr>
+    <td><div class="cell-user">
+      <div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div><strong>${s.nama}</strong><small>${s.nis}</small></div>
+    </div></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td>
+  </tr>`;
+}
+
+function nilaiRowXirpl2(s) {
+  return `<tr>
+    <td><div class="cell-user">
+      <div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div><strong>${s.nama}</strong><small>${s.nis}</small></div>
+    </div></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td>
+  </tr>`;
+}
+
+function nilaiRowXiirpl(s) {
+  return `<tr>
+    <td><div class="cell-user">
+      <div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div><strong>${s.nama}</strong><small>${s.nis}</small></div>
+    </div></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><strong>${s.nilai || '—'}</strong></td>
+    <td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td>
+  </tr>`;
+}
+
 function renderNilai() {
-  document.getElementById('nilai-rpl1-tbody').innerHTML = (siswaData['XI RPL 1']||[]).map(s=>nilaiRow(s)).join('');
-  document.getElementById('nilai-rpl2-tbody').innerHTML = (siswaData['XI RPL 2']||[]).map(s=>`<tr><td><div class="cell-user"><div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div><strong>${s.nama}</strong><small>${s.nis}</small></div></div></td><td><strong>${s.nilai||'—'}</strong></td><td><strong>${s.nilai||'—'}</strong></td><td><strong>${s.nilai||'—'}</strong></td><td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td></tr>`).join('');
-  document.getElementById('nilai-tkj1-tbody').innerHTML = (siswaData['XI TKJ 1']||[]).map(s=>`<tr><td><div class="cell-user"><div class="avatar-sm" style="background:${s.warna}">${s.nama.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div><strong>${s.nama}</strong><small>${s.nis}</small></div></div></td><td><strong>${s.nilai||'—'}</strong></td><td><strong>${s.nilai||'—'}</strong></td><td><button class="btn-icon comment" onclick="bukaKomentarSiswa(${s.id},'${s.nama}')"><i class="fa-solid fa-comment-dots"></i></button></td></tr>`).join('');
+  syncSiswaFromAdmin();
+  
+  // X RPL
+  const xrplTbody = document.getElementById('nilai-xrpl-tbody');
+  if (xrplTbody) {
+    xrplTbody.innerHTML = (siswaData['X RPL'] || []).map(s => nilaiRowXrpl(s)).join('');
+  }
+  
+  // XI RPL 1
+  const xirpl1Tbody = document.getElementById('nilai-xirpl1-tbody');
+  if (xirpl1Tbody) {
+    xirpl1Tbody.innerHTML = (siswaData['XI RPL 1'] || []).map(s => nilaiRowXirpl1(s)).join('');
+  }
+  
+  // XI RPL 2
+  const xirpl2Tbody = document.getElementById('nilai-xirpl2-tbody');
+  if (xirpl2Tbody) {
+    xirpl2Tbody.innerHTML = (siswaData['XI RPL 2'] || []).map(s => nilaiRowXirpl2(s)).join('');
+  }
+  
+  // XII RPL
+  const xiirplTbody = document.getElementById('nilai-xiirpl-tbody');
+  if (xiirplTbody) {
+    xiirplTbody.innerHTML = (siswaData['XII RPL'] || []).map(s => nilaiRowXiirpl(s)).join('');
+  }
 }
 
 /* ════════════════════════════════════
@@ -351,12 +506,17 @@ function bukaKomentarSiswa(id, nama) {
   openModal('modal-komentar-siswa');
 }
 function submitKomentarSiswa() {
-  const teks = document.getElementById('kom-siswa-teks').value.trim();
+  const teks  = document.getElementById('kom-siswa-teks').value.trim();
   const jenis = document.getElementById('kom-siswa-enum').value;
   const siswa = Object.values(siswaData).flat().find(s=>s.id===komentarSiswaTarget);
   if (siswa) siswa.komentar = jenis + (teks?' — '+teks:'');
   closeModal('modal-komentar-siswa');
   showToast('Komentar berhasil dikirim!','success');
+  
+  // Refresh tampilan jika sedang di halaman penilaian
+  if (currentTugasId) {
+    bukaPenilaian(currentTugasId);
+  }
 }
 
 /* ════════════════════════════════════
@@ -379,8 +539,8 @@ function renderPengumuman() {
   `).join('');
 }
 function submitPengumuman() {
-  const judul  = document.getElementById('peng-judul').value.trim();
-  const isi    = document.getElementById('peng-isi').value.trim();
+  const judul = document.getElementById('peng-judul').value.trim();
+  const isi   = document.getElementById('peng-isi').value.trim();
   if (!judul||!isi) { showToast('Judul dan isi pengumuman wajib diisi!','warn'); return; }
   pengumumanList.unshift({judul,target:document.getElementById('peng-target').value,kelas:document.getElementById('peng-kelas').value,isi,tgl:today()});
   closeModal('modal-pengumuman');
@@ -407,7 +567,10 @@ function renderPA() {
       <td><span class="kelas-chip">${p.tipe}</span></td>
       <td>${p.tgl}</td>
       <td><span class="badge-status ${p.status==='sudah-review'?'sudah':p.status==='belum-review'?'belum':'terlambat'}">${statusLabel(p.status)}</span></td>
-      <td><div class="td-actions"><button class="btn-icon view"><i class="fa-solid fa-eye"></i></button><button class="btn-icon del" onclick="hapusPA(${p.id})"><i class="fa-solid fa-trash"></i></button></div></td>
+      <td><div class="td-actions">
+        <button class="btn-icon view"><i class="fa-solid fa-eye"></i></button>
+        <button class="btn-icon del" onclick="hapusPA(${p.id})"><i class="fa-solid fa-trash"></i></button>
+      </div></td>
     </tr>
   `).join('');
 }
@@ -420,6 +583,16 @@ function submitPA() {
   document.getElementById('pa-judul').value='';
   document.getElementById('nama-file-pa').textContent='';
   renderPA();
+
+  // Sync perangkat ajar ke SharedStore agar kepsek bisa review
+  if (window.SharedStore) {
+    const guruEntry = window.SharedStore.guru.find(g => g.email === 'irwan@gmail.com');
+    if (guruEntry) {
+      if (!guruEntry.perangkat) guruEntry.perangkat = [];
+      guruEntry.perangkat.unshift({judul, tipe, tgl:today(), status:'belum-review'});
+    }
+  }
+
   showToast('Perangkat ajar "'+judul+'" berhasil dikirim ke Kepsek!','success');
 }
 function hapusPA(id) {
@@ -433,7 +606,16 @@ function hapusPA(id) {
    KOMENTAR KEPSEK
 ════════════════════════════════════ */
 function renderKomentarKepsek() {
-  document.getElementById('komentar-kepsek-list').innerHTML = komentarKepsek.map(k => `
+  // Cek komentar dari SharedStore (kepsek bisa nambah komentar)
+  const shared = window.SharedStore;
+  let list = komentarKepsek;
+  if (shared && shared.guru) {
+    const guruEntry = shared.guru.find(g => g.email === 'irwan@gmail.com');
+    if (guruEntry && guruEntry.komentar && guruEntry.komentar.length > 0) {
+      list = guruEntry.komentar.map(k => ({tipe:k.tipe, teks:k.teks, pa:k.pa || '—', tgl:k.tgl}));
+    }
+  }
+  document.getElementById('komentar-kepsek-list').innerHTML = list.map(k => `
     <div class="komentar-kepsek-item">
       <div class="kom-avatar">KS</div>
       <div class="kom-body">
@@ -455,38 +637,50 @@ function renderKomentarKepsek() {
 function today() {
   return new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 }
-
 function previewFile(input, areaId, hintId) {
   if (input.files[0]) {
     document.getElementById(hintId).textContent = '📎 ' + input.files[0].name;
-    if (areaId) { const a = document.getElementById(areaId); a.querySelector('h4').textContent = input.files[0].name; }
+    if (areaId) { 
+      const a = document.getElementById(areaId); 
+      if (a) a.querySelector('h4').textContent = input.files[0].name; 
+    }
   }
 }
-
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-// Tutup modal saat klik di luar
+function openModal(id)  { 
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.add('open'); 
+}
+function closeModal(id) { 
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.remove('open'); 
+}
 document.querySelectorAll('.modal-overlay').forEach(ov =>
   ov.addEventListener('click', e => { if(e.target===ov) closeModal(ov.id); })
 );
-
-function toggleNotif() { document.getElementById('notif-panel').classList.toggle('open'); }
+function toggleNotif() { 
+  const panel = document.getElementById('notif-panel');
+  if (panel) panel.classList.toggle('open'); 
+}
 function markAllRead() {
   document.querySelectorAll('.notif-item.unread').forEach(el=>el.classList.remove('unread'));
-  document.querySelector('.notif-dot')?.remove();
+  const notifDot = document.querySelector('.notif-dot');
+  if (notifDot) notifDot.remove();
 }
-
-// Tutup notifikasi saat klik di luar
 document.addEventListener('click', e => {
-  if (!e.target.closest('#notif-panel') && !e.target.closest('#notif-btn'))
-    document.getElementById('notif-panel').classList.remove('open');
+  const notifPanel = document.getElementById('notif-panel');
+  const notifBtn = document.getElementById('notif-btn');
+  if (notifPanel && !e.target.closest('#notif-panel') && !e.target.closest('#notif-btn')) {
+    notifPanel.classList.remove('open');
+  }
 });
-
-function doLogout() { window.location.href = 'login.html'; }
-
+function doLogout() { 
+  if (confirm('Yakin ingin logout?')) {
+    window.location.href = 'login.html'; 
+  }
+}
 function showToast(msg, type='success') {
   const c = document.getElementById('toast-container');
+  if (!c) return;
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   const icon = type==='success'?'✅':type==='warn'?'⚠️':'ℹ️';
@@ -496,3 +690,26 @@ function showToast(msg, type='success') {
   setTimeout(()=>removeToast(t),4000);
 }
 function removeToast(t){ t.classList.add('out'); setTimeout(()=>t.remove(),350); }
+
+/* ════ INIT ════ */
+document.addEventListener('DOMContentLoaded', () => {
+  syncSiswaFromAdmin();  // ← Sync siswa dari admin saat load
+  syncGuruProfile();     // ← Update profil guru dari SharedStore
+  
+  // Update dashboard stats
+  const dashTugasAktif = document.getElementById('dash-tugas-aktif');
+  if (dashTugasAktif) dashTugasAktif.textContent = tugasData.filter(t => !t.selesai).length;
+  
+  const dashBelumNilai = document.getElementById('dash-belum-nilai');
+  if (dashBelumNilai) {
+    dashBelumNilai.textContent = Object.values(siswaData).flat()
+      .filter(s => s.kumpulTugas === 'sudah' && s.nilai === null).length;
+  }
+  
+  // Update badge counts
+  const badgeKelas = document.getElementById('badge-kelas');
+  if (badgeKelas) badgeKelas.textContent = '4';
+  
+  const badgeTugas = document.getElementById('badge-tugas');
+  if (badgeTugas) badgeTugas.textContent = tugasData.length;
+});
